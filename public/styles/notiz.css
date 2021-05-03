@@ -1,0 +1,64 @@
+* {
+    box-sizing: border-box;
+    border: 1px solid;
+}
+
+.container-titel {
+    display: flex;
+}
+
+.container-titel-label {
+    width: 20%;
+}
+
+.container-titel-input {
+    width: 60%;
+}
+
+.container-beschreibung {
+    display: flex;
+}
+
+.container-beschreibung-label {
+    width: 20%;
+}
+
+.container-beschreibung-input {
+    width: 60%;
+}
+
+.container-prio {
+    display: flex;
+}
+
+.container-prio-label {
+    width: 20%;
+}
+
+.container-prio-bild-1 {
+    width: 5%;
+}
+
+.container-prio-bild-2 {
+    width: 5%;
+}
+
+.container-prio-bild-3 {
+    width: 5%;
+}
+
+.container-prio-bild-4 {
+    width: 5%;
+}
+
+.container-prio-bild-5 {
+    width: 5%;
+}
+
+.container-datum {
+    display: flex;
+}
+
+.container-cancel {
+    display: flex;
+}

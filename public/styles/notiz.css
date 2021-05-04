@@ -7,11 +7,11 @@
     display: flex;
 }
 
-.container-titel-label {
+.titel-label {
     width: 20%;
 }
 
-.container-titel-input {
+.titel-input {
     width: 60%;
 }
 
@@ -19,11 +19,11 @@
     display: flex;
 }
 
-.container-beschreibung-label {
+.beschreibung-label {
     width: 20%;
 }
 
-.container-beschreibung-input {
+.beschreibung-text {
     width: 60%;
 }
 
@@ -31,7 +31,7 @@
     display: flex;
 }
 
-.container-prio-label {
+.prio-label {
     width: 20%;
 }
 
@@ -59,6 +59,39 @@
     display: flex;
 }
 
+.datum-label {
+    width: 20%;
+}
+
+.datum-input {
+    width: 15%;
+}
+.container-datum-bild{
+    width: 5%;
+}
+
 .container-cancel {
     display: flex;
+}
+
+.container-speichern {
+    width: 90%;
+}
+
+.container-cancel-col-1 {
+    width: 80%;
+}
+
+.container-cancel-col-2 {
+    width: 10%;
+}
+
+.blitz {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.kalender {
+    max-width: 100%;
+    max-height: 100%;
 }

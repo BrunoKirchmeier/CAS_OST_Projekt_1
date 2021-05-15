@@ -1,0 +1,98 @@
+* {
+    box-sizing: border-box;
+    border: 1px solid;
+}
+
+.aside {
+}
+
+.aside-row-1 { 
+    display: flex;
+}
+
+.aside-row-1-col-1 {
+    width: 80%;
+}
+
+.aside-row-1-col-2 {
+    width: 20%;
+}
+
+.aside-row-2 {
+    display: flex;
+}
+
+.aside-row-2-col-1{
+    width: 80%;
+}
+
+.aside-row-2-col-2 {
+    width: 20%;
+}
+
+.button-sortieren-datum-erledigt {
+    width: 30%;
+}
+
+.button-sortieren-datum-erstellt {
+    width: 30%;
+}
+
+.button-sortieren-prio {
+    width: 30%;
+}
+
+.notiz-element-row-1 {
+    display: flex;
+}
+
+.notiz-element-row-1-col-1 {
+    width: 30%;
+}
+
+.notiz-element-row-1-col-2 {
+    width: 45%;
+}
+
+.notiz-element-row-1-col-3 {
+    width: 5%;
+}
+
+.notiz-element-row-1-col-4 {
+    width: 5%;
+}
+
+.notiz-element-row-1-col-5 {
+    width: 5%;
+}
+
+.notiz-element-row-1-col-6 {
+    width: 5%;
+}
+
+.notiz-element-row-1-col-7 {
+    width: 5%;
+}
+
+
+.notiz-element-row-2 {
+    display: flex;
+}
+
+.notiz-element-row-2-col-1 {
+    width: 30%;
+    display: flex;
+}
+
+.notiz-element-row-2-col-2 {
+    width: 55%;
+}
+
+.notiz-element-row-2-col-3 {
+    width: 15%;
+}
+
+.blitz {
+    width: 20%;
+    max-height: 100%;
+}

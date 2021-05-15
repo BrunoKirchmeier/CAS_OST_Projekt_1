@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Note App</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js" integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous" defer></script>
+  <script src="scripts/index.js" type="module"></script>
+
+  <link rel="stylesheet" href="styles/index.css">
+</head>
+<body>
+  <header></header>
+  <div>
+    <aside class="aside">
+      <div class="aside-row-1">
+        <div class="aside-row-1-col-1">
+          <button class="button-notiz-neu">button-notiz-neu</button>
+        </div>
+        <div class="aside-row-1-col-2">
+          <div class="select-style">
+            <select name="select-style">
+              <option value="1" data-style-1>1</option>
+              <option value="2" data-style-2>2</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="aside-row-2">
+        <div class="aside-row-2-col-1">
+          <button class="button-sortieren-datum-erledigt">button-sortieren-datum-erledigt</button>
+          <button class="button-sortieren-datum-erstellt">button-sortieren-datum-erstellt</button>
+          <button class="button-sortieren-prio">button-sortieren-prio</button>
+        </div>
+        <div class="aside-row-2-col-2">
+          <button class="button-show-finished">button-show-finished</button>
+        </div>
+      </div>
+    </aside>
+    <main>
+      <div class="notiz-element">
+        <div class="notiz-element-row-1">
+          <div class="notiz-element-row-1-col-1">
+            <p>Nächsten Mittwoch</p>
+          </div>
+          <div class="notiz-element-row-1-col-2">
+            <p>CAS FEE Selbsstudium</p>
+          </div>
+          <div class="notiz-element-row-1-col-3">
+            <img class="blitz" src="./Bilder/Blitz.jpg" alt="Blitz">
+          </div>
+          <div class="notiz-element-row-1-col-4">
+            <img class="blitz" src="./Bilder/Blitz.jpg" alt="Blitz">
+          </div>
+          <div class="notiz-element-row-1-col-5">
+            <img class="blitz" src="./Bilder/Blitz.jpg" alt="Blitz">
+          </div>
+          <div class="notiz-element-row-1-col-6">
+            <img class="blitz" src="./Bilder/Blitz.jpg" alt="Blitz">
+          </div>
+          <div class="notiz-element-row-1-col-7">
+            <img class="blitz" src="./Bilder/Blitz.jpg" alt="Blitz">
+          </div>
+        </div>
+        <div class="notiz-element-row-2">
+          <div class="notiz-element-row-2-col-1">
+            <input type="checkbox" class="checkbox-finished-label" name="checkbox-finished">
+            <label for="checkbox-finished">Finished</label>
+          </div>
+          <div class="notiz-element-row-2-col-2">
+            <textarea name="notiz-text">HTML für die note App erstellen</textarea>
+          </div>
+          <div class="notiz-element-row-2-col-3">
+            <button class="button-notiz-edit">Edit</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="footer"></footer>
+  </div>
+</body>
+</html>
+
+
+

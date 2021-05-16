@@ -13,9 +13,10 @@
       <div class="header-row-1-col-1">
         <button class="button-notiz-neu button-style-1">Neue Notiz</button>
       </div>
-      <div class="header-row-1-col-2">
+      <div class="header-row-1-col-2"></div>
+      <div class="header-row-1-col-3">
         <select class="button-style-1" 
-                name="select-style" >
+                name="selectStyle" >
           <option value="white" 
                   data-style-1>Layout Standard</option>
           <option value="dark" 
@@ -23,9 +24,23 @@
         </select>
       </div>
       <div class="header-row-2-col-1">
-        <button class="button-sortieren-datum-erledigt button-style-1">Nach Erledigungsdatum</button>
-        <button class="button-sortieren-datum-erstellt button-style-1">Nach Erstellungsdatum</button>
-        <button class="button-sortieren-prio button-style-1">Nach Priorität</button>
+        <div class="radio-style-1">
+          <input type="radio" 
+                 name="sortieren" 
+                 id="sortierenDatumErledigt" 
+                 value="erledigt">
+          <label for="sortierenDatumErledigt">Nach Erledigungsdatum</label>
+          <input type="radio" 
+                 name="sortieren"
+                 id="sortierenDatumErstellt" 
+                 value="erstellt">
+          <label for="sortierenDatumErstellt">Nach Erstellungsdatum</label>
+          <input type="radio" 
+                 name="sortieren"
+                 id="sortierenPrio" 
+                 value="prio">
+          <label for="sortierenPrio">Nach Priorität</label>
+        </div>
       </div>
       <div class="header-row-2-col-2">
         <button class="button-zeige-abgeschlossen button-style-1">Erledigte anzeigen</button>
@@ -69,22 +84,22 @@
         <div class="notiz-container-status">
           <input class="notiz-status" 
                  type="checkbox" 
-                 id ="notiz-status"
-                 name="notiz-status">
-          <label for="notiz-status">Finished</label>
+                 id ="notizStatus"
+                 name="notizStatus">
+          <label for="notizStatus">Finished</label>
         </div>
         <div class="notiz-container-text">
-          <div class="notiz-container-text-kurz">
-            <textarea class="textarea-style-1" 
-                      name="notiz-text" 
-                      rows=2
-                      readonly >HTML für die note App erstellen</textarea>
-          </div>
-          <div class="notiz-container-text-lang">
-            <img class="blitz" 
-                 src="./Bilder/Blitz.jpg" 
-                 alt="Blitz">
-          </div>
+          <textarea class="textarea-style-1"
+                    id="notizText"
+                    rows="2" 
+                    disabled>HTML für die note App erstellen</textarea>
+          <label for="notizText">
+            <svg viewBox="0 0 100 100">
+              <polygon points="0,25 100,25 50,75 0,25"
+                       fill="black">
+              </polygon>
+            </svg>
+          </label>
         </div>
         <div class="notiz-container-edit">
           <button class="button-notiz-edit button-style-1">Anpassen</button>

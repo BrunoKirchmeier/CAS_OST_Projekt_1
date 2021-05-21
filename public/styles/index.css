@@ -107,7 +107,7 @@
 .notiz-container-prio {
     grid-area: prio;
     display: flex;
-    width: 80%;
+    align-items: center;
 }
 
 .notiz-container-status {

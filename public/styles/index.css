@@ -1,7 +1,52 @@
 /* CSS Variablen Allgemein */
 :root {
-    --background-color: rgb(200, 200, 200);
+    --background-color: white;
     --font-color: black;
+    --button-1-background-color: rgb(202,225,255);
+    --button-1-color: black;
+    --button-1-hover-background-color: rgb(30,144,255);
+    --button-1-hover-color: black;
+    --radio-1-background-color: rgb(202,225,255);
+    --radio-1-color: black;
+    --radio-1-hover-background-color: rgb(30,144,255);
+    --radio-1-hover-color: black;
+    --radio-1-checked-background-color: rgb(30,144,255);
+    --radio-1-checked-color: black;
+    --header-background-color: white;
+    --header-color: black;
+    --main-background-color: white;
+    --main-color: black;
+    --footer-background-color: white;
+    --footer-color: black;
+    --notiz-background-color: white;
+    --notiz-color: black;
+    --textbox-1-background-color: white;
+    --textbox-1-color: black;
+}
+
+.dark-mode {
+    --background-color: white;
+    --font-color: black;
+    --button-1-background-color: rgb(202,225,255);
+    --button-1-color: black;
+    --button-1-hover-background-color: rgb(30,144,255);
+    --button-1-hover-color: black;
+    --radio-1-background-color: rgb(202,225,255);
+    --radio-1-color: black;
+    --radio-1-hover-background-color: rgb(30,144,255);
+    --radio-1-hover-color: black;
+    --radio-1-checked-background-color: rgb(30,144,255);
+    --radio-1-checked-color: black;
+    --header-background-color: white;
+    --header-color: black;
+    --main-background-color: white;
+    --main-color: black;
+    --footer-background-color: white;
+    --footer-color: black;
+    --notiz-background-color: white;
+    --notiz-color: black;
+    --textbox-1-background-color: white;
+    --textbox-1-color: black;
 }
 
 * {
@@ -18,6 +63,9 @@
     "header"
     "main"
     "footer";
+
+    background-color: var(--background-color);
+    color: var(--font-color);
 }
 
 /* Grid Header */
@@ -33,13 +81,8 @@
     margin: 0 0 30px 0;
     padding: 10px;
     border-bottom: 2px solid; 
-
-    /*
-    margin: 10px;
-    padding: 10px;
-    background-color: var(--background-color);
-    color: var(--font-color);
-    */
+    background-color: var(--header-background-color);
+    color: var(--header-color);
 }
 
 .header-row-1-col-1 {
@@ -70,13 +113,8 @@
 .content {
     grid-area: main; 
     padding: 10px;
-
-    /*
-    margin: 10px;
-    padding: 10px;
-    background-color: var(--background-color);
-    color: var(--font-color);
-    */
+    background-color: var(--main-background-color);
+    color: var(--main-color);
 }
 
 /* Grid Notiz Element */
@@ -92,6 +130,8 @@
     margin: 0 0 30px 0;
     border: 2px solid;
     border-radius: 3px;
+    background-color: var(--notiz-background-color);
+    color: var(--notiz-color);
 }
 
 .notiz-container-datum {
@@ -136,11 +176,8 @@
 
 .footer { 
     grid-area: footer; 
-
-    /*
-    background-color: var(--background-color);
-    color: var(--font-color);
-    */
+    background-color: var(--footer-background-color);
+    color: var(--footer-color);
 }
 
 /* Klassen zu einzelnen wiederkehrenden Elementen */
@@ -152,15 +189,17 @@
 .button-style-1 {
     width: 100%;
     height: 100%;
-    background-color: rgb(202,225,255);
     border: 2px solid;
     border-radius: 3px;
     font-weight: 700;
     padding: 5px;
+    background-color: var(--button-1-background-color);
+    color: var(--button-1-color);
 }
 
-button:hover {
-    background-color: rgb(224,255,255);
+.button-style-1:hover {
+    background-color: var(--button-1-hover-background-color);
+    color: var(--button-1-hover-color);
 }
 
 .radio-style-1 {
@@ -169,28 +208,35 @@ button:hover {
 
 .radio-style-1 input[type="radio"] {
     display: none;
-    background-color:rgb(202,225,255);
     padding: 5px;
 }
 
 .radio-style-1 label {
     display: inline-block;
+    flex: 0 0 30%;
     border: 2px solid;
     border-radius: 3px;
-    background-color:rgb(202,225,255);
     padding: 5px;
-    flex: 0 0 30%;
+    background-color: var(--radio-1-background-color);
+    color: var(--radio-1-color);
 }
 
 .radio-style-1 input[type="radio"]:checked + label {
-    background-color:rgb(30,144,255);
+    background-color: var(--radio-1-checked-background-color);
+    color: var(--radio-1-checked-color);
 }
 
 .radio-style-1 label:hover {
-    background-color: rgb(224,255,255);
+    background-color: var(--radio-1-hover-background-color);
+    color: var(--radio-1-hover-color);
 }
 
-.textarea-style-1 {
+.textarea {
     resize: none;
     border: none;
+}
+
+.textbox-style-1 {
+    background-color: var(--textbox-1-background-color);
+    color: var(--textbox-1-color);
 }

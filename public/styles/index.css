@@ -197,7 +197,21 @@
     color: var(--button-1-color);
 }
 
+.button-style-1 > a {
+    text-decoration: none;
+}
+
 .button-style-1:hover {
+    background-color: var(--button-1-hover-background-color);
+    color: var(--button-1-hover-color);
+}
+
+.button-style-1 > a:visited { 
+    background-color: var(--button-1-hover-background-color);
+    color: var(--button-1-hover-color);
+}
+
+.button-style-1 > a:hover { 
     background-color: var(--button-1-hover-background-color);
     color: var(--button-1-hover-color);
 }

@@ -88,23 +88,18 @@ class ModelTodo {
 
     /* Datensatz anhand Id zurueckgeben */
     getDatensatzById(iId) {
-        return todoDatensaetze.find(datensatz => parseInt(iId) === parseInt(datensatz.id));
-    }
-
-    /* Datensatz anhand Id zurueckgeben */
-    getDatensaetze() {
-        return todoDatensaetze;
+        return todoDatensaetze.find(iId => parseInt(iId) === parseInt(datensatz.id));
     }
 }
 
 // export default {ModelTodo};
 
-
+/*
 // Testdatensatz
 let todoDatensaetze = [ {id: 1, oDatumAbgeschlossen: '12.06.2021', oDatumErstellt: '12.12.2020', sTitel: 'Test Datensatz 1', sBeschreibung: 'Das ist ein Testdatensatz mit der ID 1', iPrio: 2, oDatumZuErledigenBis: '12.12.2021', bStatus: true},
                         {id: 2, oDatumAbgeschlossen: null, oDatumErstellt: '12.12.2019', sTitel: 'Test Datensatz 2', sBeschreibung: 'Das ist ein Testdatensatz mit der ID 2', iPrio: 1, oDatumZuErledigenBis: '12.12.2022', bStatus: false}]
 
-
+*/
 
 
 

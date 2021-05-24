@@ -11,7 +11,7 @@
     <header class="header">
       <div class="header-row-1-col-1">
         <button class="button-notiz-neu button-style-1">
-          <a href="./notiz.html">Neue Notiz</a>
+          <a href="./neu.html">Neue Notiz</a>
         </button>
       </div>
       <div class="header-row-1-col-2"></div>
@@ -29,7 +29,8 @@
           <input type="radio" 
                  name="sortieren" 
                  id="sortierenDatumErledigt" 
-                 value="erledigt">
+                 value="erledigt"
+                 checked>
           <label for="sortierenDatumErledigt">Nach Erledigungsdatum</label>
           <input type="radio" 
                  name="sortieren"
@@ -57,27 +58,27 @@
         </div>
         <div class="notiz-container-prio">
           <div>
-            <img class="blitz" 
+            <img class="blitz-inaktiv" 
                  src="./Bilder/Blitz.jpg" 
                  alt="Blitz">
           </div>
           <div>
-            <img class="blitz" 
+            <img class="blitz-inaktiv" 
                  src="./Bilder/Blitz.jpg" 
                  alt="Blitz">
           </div>
           <div>
-            <img class="blitz" 
+            <img class="blitz-inaktiv" 
                  src="./Bilder/Blitz.jpg" 
                  alt="Blitz">
           </div>
           <div>
-            <img class="blitz" 
+            <img class="blitz-inaktiv" 
                  src="./Bilder/Blitz.jpg" 
                  alt="Blitz">
           </div>
           <div>
-            <img class="blitz" 
+            <img class="blitz-inaktiv" 
                  src="./Bilder/Blitz.jpg" 
                  alt="Blitz">
           </div>
@@ -104,7 +105,9 @@
         </div>
         <div class="notiz-container-edit">
           <button class="button-notiz-edit button-style-1"
-                  data-id="2">Anpassen</button>
+                  data-id="2">
+                  <a href="./update.html">Anpassen</a>
+          </button>
         </div>
       </div>
     </main>
@@ -116,5 +119,6 @@
   -->
   <script src="scripts/Models/Todo.js"></script>
   <script src="scripts/Controllers/Todo.js"></script>
+  <script src="scripts/Views/index.js"></script>
 </body>
 </html>

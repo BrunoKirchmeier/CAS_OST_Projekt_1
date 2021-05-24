@@ -27,8 +27,30 @@ class ModelTodo {
         if (!this._iLatestId) this._iLatestId = 1;
         else this._iLatestId++;
         return this._iLatestId;
-    }    
+    }
     
+    /* Erledigte Datensaetze zurückgeben */
+    #getErledigteDatensaetze() {
+        return todoDatensaetze.filter(datensatz => datensatz.bStatus === true);
+    }
+
+    /* Sortierfunktionen */
+    #compareZuErledigen(s1, s2) {
+        const oDate1 = new Date(s1.oDatumZuErledigenBis);
+        const oDate2 = new Date(s2.oDatumZuErledigenBis);
+        return oDate2 - oDate1;
+    }
+
+    #compareErstellt(s1, s2) {
+        const oDate1 = new Date(s1.oDatumErstellt);
+        const oDate2 = new Date(s2.oDatumErstellt);
+        return oDate2 - oDate1;
+    }
+
+    #comparePrio(s1, s2) {
+        return s1.iPrio - s2.iPrio;
+    }
+
     /** Setter */
     set sTitel(__sTitel) {
         this._sTitel = __sTitel;
@@ -92,8 +114,28 @@ class ModelTodo {
     }
 
     /* Datensatz anhand Id zurueckgeben */
-    getDatensaetze() {
-        return todoDatensaetze;
+    getDatensaetze(sortingTyp = 'erledigt',
+                   filterTyp = '') {
+
+        let datensaetze = [];
+       
+        // Alle Datensaetze oder nur Erledigte anzeigen
+        if(filterTyp =='abgeschlossen') {
+            datensaetze = this.#getErledigteDatensaetze();
+        } else {
+            datensaetze = todoDatensaetze;
+        }
+
+        // Sortierung der Datensaetze
+        if(sortingTyp == 'erledigt') {
+            return datensaetze.sort(this.#compareZuErledigen);
+
+        } else if(sortingTyp == 'erstellt') {
+            return datensaetze.sort(this.#compareErstellt);
+
+        } else if(sortingTyp == 'prio') {
+            return datensaetze.sort(this.#comparePrio);
+        }
     }
 }
 
@@ -101,8 +143,9 @@ class ModelTodo {
 
 
 // Testdatensatz
-let todoDatensaetze = [ {id: 1, oDatumAbgeschlossen: '12.06.2021', oDatumErstellt: '12.12.2020', sTitel: 'Test Datensatz 1', sBeschreibung: 'Das ist ein Testdatensatz mit der ID 1', iPrio: 2, oDatumZuErledigenBis: '12.12.2021', bStatus: true},
-                        {id: 2, oDatumAbgeschlossen: null, oDatumErstellt: '12.12.2019', sTitel: 'Test Datensatz 2', sBeschreibung: 'Das ist ein Testdatensatz mit der ID 2', iPrio: 1, oDatumZuErledigenBis: '12.12.2022', bStatus: false}]
+let todoDatensaetze = [ {id: 1, oDatumAbgeschlossen: '12.06.2021', oDatumErstellt: '12.12.2020', sTitel: 'Test Datensatz 1', sBeschreibung: 'Das ist ein Testdatensatz mit der ID 1', iPrio: 2, oDatumZuErledigenBis: '12.12.2026', bStatus: true},
+                        {id: 2, oDatumAbgeschlossen: null, oDatumErstellt: '12.12.2029', sTitel: 'Test Datensatz 2', sBeschreibung: 'Das ist ein Testdatensatz mit der ID 2', iPrio: 4, oDatumZuErledigenBis: '12.12.2022', bStatus: true},
+                        {id: 3, oDatumAbgeschlossen: null, oDatumErstellt: '12.12.2021', sTitel: 'Test Datensatz 3', sBeschreibung: 'Das ist ein Testdatensatz mit der ID 3', iPrio: 1, oDatumZuErledigenBis: '12.12.2023', bStatus: false}]
 
 
 

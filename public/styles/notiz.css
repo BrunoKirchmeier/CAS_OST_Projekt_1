@@ -210,6 +210,8 @@
 
 .button-style-1 > a {
     text-decoration: none;
+    background-color: var(--button-1-background-color);
+    color: var(--button-1-color);
 }
 
 .button-style-1:hover {

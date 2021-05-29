@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Notizen App</title>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js" 
           integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" 
           crossorigin="anonymous" 
@@ -31,14 +32,15 @@
 
   <link rel="stylesheet" 
         href="styles/index.css">
-
 </head>
 <!-- Body-->
 <body>
   <div class="container">
     <header class="header">
       <div class="header-row-1-col-1">
-        <button class="button-notiz-neu button-style-1">Neue Notiz</button>
+        <button class="button-notiz-neu button-style-1">
+          <a href="./neu.html">Neue Notiz</a>
+        </button>
       </div>
       <div class="header-row-1-col-2"></div>
       <div class="header-row-1-col-3">
@@ -80,8 +82,7 @@
   <!-- Scripts Import-->
   <script src="js/Controllers/todo-controller.js" 
           type="module"></script>
-
-  <!-- Handelbar Templates: Liste aller Notizen-->
+  <!-- Handelbar Templates-->
   <script class="notiz-liste-template" 
           type="text/x-handlebars-template">
     {{#each notiz}}
@@ -94,27 +95,47 @@
       </div>
       <div class="notiz-container-prio">
         <div>
-          <img  class="blitz-inaktiv"
+          <img  class={{#xIf iPrio '==' 1 }}
+                      'blitz-aktiv'
+                      {{else}}
+                      "blitz-inaktiv"
+                      {{/xIf}}
                 src="./img/Blitz.jpg" 
                 alt="Blitz">
         </div>
         <div>
-          <img  class="blitz-inaktiv"
+          <img  class={{#xIf iPrio '==' 2 }}
+                      "blitz-aktiv"
+                      {{else}}
+                      "blitz-inaktiv"
+                      {{/xIf}}
                 src="./img/Blitz.jpg" 
                 alt="Blitz">
         </div>
         <div>
-          <img  class="blitz-inaktiv"
+          <img  class={{#xIf iPrio '==' 3 }}
+                      "blitz-aktiv"
+                      {{else}}
+                      "blitz-inaktiv"
+                      {{/xIf}}
                 src="./img/Blitz.jpg" 
                 alt="Blitz">
         </div>
         <div>
-          <img  class="blitz-inaktiv"
+          <img  class={{#xIf iPrio '==' 4 }}
+                      "blitz-aktiv"
+                      {{else}}
+                      "blitz-inaktiv"
+                      {{/xIf}} 
                 src="./img/Blitz.jpg" 
                 alt="Blitz">
         </div>
         <div>
-          <img  class="blitz-inaktiv"
+          <img  class={{#xIf iPrio '==' 5 }}
+                      "blitz-aktiv"
+                      {{else}}
+                      "blitz-inaktiv"
+                      {{/xIf}} 
                 src="./img/Blitz.jpg" 
                 alt="Blitz">
         </div>
@@ -130,7 +151,7 @@
         <textarea class="textarea textbox-style-1"
                   id="notizText"
                   rows="2" 
-                  disabled>{{sBeschreibung}}</textarea>
+                  disabled>HTML für die note App erstellen</textarea>
         <label for="notizText">
           <svg viewBox="0 0 100 100">
             <polygon points="0,25 100,25 50,75 0,25"
@@ -141,17 +162,12 @@
       </div>
       <div class="notiz-container-edit">
         <button class="button-notiz-edit button-style-1"
-                data-id="{{id}}">Anpassen
+                data-id="2">
+                <a href="./update.html">Anpassen</a>
         </button>
       </div>
     </div>
     {{/each}}
   </script>
-
-  <!-- Handelbar Templates: Detail Notiz-->
-  <script class="notiz-detail-template" 
-          type="text/x-handlebars-template">
-  </script>
-
 </body>
 </html>

@@ -5,16 +5,16 @@ export class NotizStorage {
     #aNotizen;
 
     /** Konstruktor */
-    constructor(todoDatensaetze2) {
+    constructor() {
         this.#aNotizen = JSON.parse(localStorage.getItem('NotizStorage_v1') || "[ ]");
     }
 
     /** Public Methoden */
 
     /* Datensatz anhand Id zurueckgeben */
-    getDatensatzById(iId) {
+    getDatensatzById(_iId) {
         this.getAlleDatensaetze();
-        return this.#aNotizen.find(datensatz => parseInt(iId) === parseInt(datensatz.id));
+        return this.#aNotizen.find(datensatz => parseInt(_iId) === parseInt(datensatz.id));
     }
 
     /* Alle Datensaetze zurueckgeben */
@@ -24,19 +24,19 @@ export class NotizStorage {
     }
 
     /* Neuen Datensatz erstellen */
-    insertDatensatz(oNotiz) {
+    insertDatensatz(_oNotiz) {
         this.getAlleDatensaetze();
-        oNotiz.id = this.#aNotizen.length + 1;
-        this.#aNotizen.push(oNotiz);
+        _oNotiz.id = this.#aNotizen.length + 1;
+        this.#aNotizen.push(_oNotiz);
         localStorage.setItem('NotizStorage_v1', JSON.stringify(this.#aNotizen));
     }
 
     /* Datensatz aktualisieren */
-    updateDatensatz(oNotiz) {
+    updateDatensatz(_oNotiz) {
         this.getAlleDatensaetze();
-        const index = this.#aNotizen.findIndex(datensatz => datensatz.id == oNotiz.id);
+        const index = this.#aNotizen.findIndex(datensatz => datensatz.id == _oNotiz.id);
         if(index > -1) {
-            this.#aNotizen[index] = oNotiz;
+            this.#aNotizen[index] = _oNotiz;
         }
     }
 

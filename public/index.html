@@ -28,71 +28,80 @@
           return isTrue ? options.fn(this) : options.inverse(this);
     });
   </script>
-
   <link rel="stylesheet" 
         href="styles/index.css">
+
+        <link rel="stylesheet" 
+        href="styles/notiz.css">
 
 </head>
 <!-- Body-->
 <body>
-  <div class="container">
-    <header class="header">
-      <div class="header-row-1-col-1">
-        <button class="button-notiz-neu button-style-1">Neue Notiz</button>
-      </div>
-      <div class="header-row-1-col-2"></div>
-      <div class="header-row-1-col-3">
-        <select class="button-style-1" 
-                name="selectStyle" >
-          <option value="white" 
-                  data-style-1>Layout Standard</option>
-          <option value="dark" 
-                  data-style-2>Layout Dunkel</option>
-        </select>
-      </div>
-      <div class="header-row-2-col-1">
-        <div class="radio-style-1">
-          <input type="radio" 
-                name="sortieren" 
-                id="sortierenDatumErledigt" 
-                value="erledigt"
-                checked>
-          <label for="sortierenDatumErledigt">Nach Erledigungsdatum</label>
-          <input type="radio" 
-                name="sortieren"
-                id="sortierenDatumErstellt" 
-                value="erstellt">
-          <label for="sortierenDatumErstellt">Nach Erstellungsdatum</label>
-          <input type="radio" 
-                name="sortieren"
-                id="sortierenPrio" 
-                value="prio">
-          <label for="sortierenPrio">Nach Priorität</label>
-        </div>
-      </div>
-      <div class="header-row-2-col-2">
-        <button class="button-zeige-abgeschlossen button-style-1">Erledigte anzeigen</button>
-      </div>
-    </header>
-    <main class="content"></main>
-    <footer class="footer">footer</footer>
+  <div class="body-container"
+       data-page-id="index">
+    <header class="page-index header"></header>
+    <main class="page-index content"></main>
+    <footer class="page-index footer">footer</footer>
   </div>
-  <!-- Scripts Import-->
+  <!-- Klassen Importe-->
   <script src="js/Controllers/todo-controller.js" 
-          type="module"></script>
+          type="module">
+  </script>
 
-  <!-- Handelbar Templates: Liste aller Notizen-->
-  <script class="notiz-liste-template" 
+  <!-- Handelbar Templates: Liste aller Notizen (Header)-->
+  <script class="page-index notiz-liste-header-template" 
+          type="text/x-handlebars-template">
+    <div class="page-index header-row-1-col-1">
+      <button class="button-notiz-neu button-style-1" 
+              data-change-to-page="detail">Neue Notiz</button>
+    </div>
+    <div class="page-index header-row-1-col-2"></div>
+    <div class="page-index header-row-1-col-3">
+      <select class="button-style-1" 
+              name="selectStyle" >
+        <option value="white" 
+                data-style-1>Layout Standard</option>
+        <option value="dark" 
+                data-style-2>Layout Dunkel</option>
+      </select>
+    </div>
+    <div class="page-index header-row-2-col-1">
+      <div class="radio-style-1">
+        <input type="radio" 
+              name="sortieren" 
+              id="sortierenDatumErledigt" 
+              value="erledigt"
+              checked>
+        <label for="sortierenDatumErledigt">Nach Erledigungsdatum</label>
+        <input type="radio" 
+              name="sortieren"
+              id="sortierenDatumErstellt" 
+              value="erstellt">
+        <label for="sortierenDatumErstellt">Nach Erstellungsdatum</label>
+        <input type="radio" 
+              name="sortieren"
+              id="sortierenPrio" 
+              value="prio">
+        <label for="sortierenPrio">Nach Priorität</label>
+      </div>
+    </div>
+    <div class="page-index header-row-2-col-2">
+      <button class="button-zeige-abgeschlossen button-style-1">Erledigte anzeigen</button>
+    </div>
+  </script>
+
+  <!-- Handelbar Templates: Liste aller Notizen (Content)-->
+  <script class="page-index notiz-liste-content-template" 
           type="text/x-handlebars-template">
     {{#each notiz}}
-    <div class="notiz-container">
-      <div class="notiz-container-datum">
+    <div class="page-index notiz-container">
+      <div class="page-index notiz-container-datum">
         <p>{{oDatumZuErledigenBis}}</p>
       </div>
-      <div class="notiz-container-titel">
+      <div class="page-index notiz-container-titel">
         <p>{{sTitel}}</p>
       </div>
-      <div class="notiz-container-prio">
+      <div class="page-index notiz-container-prio">
         <div>
           <img  class="blitz-inaktiv"
                 src="./img/Blitz.jpg" 
@@ -119,14 +128,14 @@
                 alt="Blitz">
         </div>
       </div>
-      <div class="notiz-container-status">
+      <div class="page-index notiz-container-status">
         <input class="notiz-status" 
                 type="checkbox" 
                 id ="notizStatus"
                 name="notizStatus">
         <label for="notizStatus">Finished</label>
       </div>
-      <div class="notiz-container-text">
+      <div class="page-index notiz-container-text">
         <textarea class="textarea textbox-style-1"
                   id="notizText"
                   rows="2" 
@@ -139,19 +148,67 @@
           </svg>
         </label>
       </div>
-      <div class="notiz-container-edit">
+      <div class="page-index notiz-container-edit">
         <button class="button-notiz-edit button-style-1"
-                data-id="{{id}}">Anpassen
+                data-notiz-id="{{id}}"
+                data-change-to-page="detail">Anpassen
         </button>
       </div>
     </div>
     {{/each}}
   </script>
-
   <!-- Handelbar Templates: Detail Notiz-->
-  <script class="notiz-detail-template" 
+  <script class="page-detail notiz-detail-template" 
           type="text/x-handlebars-template">
-  </script>
 
+    <label class="page-detail titel-label" 
+            for="titel">Title</label>
+    <input class="page-detail titel-input textbox-style-1" 
+            type="text" 
+            id="titel">
+    <div class="page-detail leer1"></div>
+    <label class="page-detail beschreibung-label" 
+            for="beschreibung">Beschreibung</label>
+    <textarea class="page-detail beschreibung-text textbox-style-1" 
+              id="beschreibung"></textarea>
+    <div class="page-detail leer2"></div>
+    <label class="page-detail prio-label" 
+            for="prio">Wichtigkeit</label>
+    <div class="page-detail prio-container-status" id="prio">
+      <div>
+        <img class="blitz-inaktiv" src="./img/Blitz.jpg" alt="Blitz">
+      </div>
+      <div>
+        <img class="blitz-inaktiv" src="./img/Blitz.jpg" alt="Blitz">
+      </div>
+      <div>
+        <img class="blitz-inaktiv" src="./img/Blitz.jpg" alt="Blitz">
+      </div>
+      <div>
+        <img class="blitz-inaktiv" src="./img/Blitz.jpg" alt="Blitz">
+      </div>
+      <div>
+        <img class="blitz-inaktiv" src="./img/Blitz.jpg" alt="Blitz">
+      </div>
+    </div>
+    <div class="page-detail leer3"></div>
+    <label class="page-detail datum-label" 
+            for="datum">Erledigt bis:</label>
+    <div class="page-detail datum-container-input">
+      <input class="datum-input textbox-style-1" 
+              type="date" 
+              id="datum">
+      <div class="container-datum-bild">
+        <img class="kalender" 
+              src="./img/Kalender.png" 
+              alt="Kalender">
+      </div>
+    </div>
+    <div class="page-detail leer4"></div>
+    <button class="page-detail speichern button-style-1"
+            data-change-to-page="index">Speichern</button>
+    <div class="page-detail leer5"></div>
+    <button class="page-detail cancel button-style-1">Cancel</button>
+  </script>
 </body>
 </html>

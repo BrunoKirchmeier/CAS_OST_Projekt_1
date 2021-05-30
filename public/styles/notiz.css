@@ -1,59 +1,10 @@
 /* CSS Variablen Allgemein */
 :root {
     --height: 2em;
-
-    --background-color: white;
-    --font-color: black;
-    --button-1-background-color: rgb(202,225,255);
-    --button-1-color: black;
-    --button-1-hover-background-color: rgb(30,144,255);
-    --button-1-hover-color: black;
-    --radio-1-background-color: rgb(202,225,255);
-    --radio-1-color: black;
-    --radio-1-hover-background-color: rgb(30,144,255);
-    --radio-1-hover-color: black;
-    --radio-1-checked-background-color: rgb(30,144,255);
-    --radio-1-checked-color: black;
-    --main-background-color: white;
-    --main-color: black;
-    --footer-background-color: white;
-    --footer-color: black;
-    --notiz-background-color: white;
-    --notiz-color: black;
-    --textbox-1-background-color: white;
-    --textbox-1-color: black;
-}
-
-.dark-mode {
-    --background-color: white;
-    --font-color: black;
-    --button-1-background-color: rgb(202,225,255);
-    --button-1-color: black;
-    --button-1-hover-background-color: rgb(30,144,255);
-    --button-1-hover-color: black;
-    --radio-1-background-color: rgb(202,225,255);
-    --radio-1-color: black;
-    --radio-1-hover-background-color: rgb(30,144,255);
-    --radio-1-hover-color: black;
-    --radio-1-checked-background-color: rgb(30,144,255);
-    --radio-1-checked-color: black;
-    --main-background-color: white;
-    --main-color: black;
-    --footer-background-color: white;
-    --footer-color: black;
-    --notiz-background-color: white;
-    --notiz-color: black;
-    --textbox-1-background-color: white;
-    --textbox-1-color: black;
-}
-
-* {
-    box-sizing: border-box;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 /* Grid Header / Content / Footer */
-.container {
+.page-detail.body-container {
     display: grid;
     grid-template-columns: repeat(1, 100%);
     grid-template-rows: 1fr auto; 
@@ -66,7 +17,7 @@
 }
 
 /* Grid Content */
-.content {
+.page-detail.content {
     grid-area: main;
     display: grid;
     grid-template-columns: repeat(12, 8.33333333%);
@@ -85,45 +36,45 @@
     color: var(--main-color);
 }
 
-.titel-label {
+.page-detail.titel-label {
     grid-area: titellabel;
     height: var(--height);
     margin: 0 0 20px 0;
 }
 
-.titel-input {
+.page-detail.titel-input {
     grid-area: titel;
     height: var(--height);
     margin: 0 0 20px 0;
 }
 
-.leer1 {
+.page-detail.leer1 {
     grid-area: leer1;
     margin: 0 0 20px 0;
 }
 
-.beschreibung-label {
+.page-detail.beschreibung-label {
     grid-area: bezlabel;
     margin: 0 0 20px 0;
 }
 
-.beschreibung-text {
+.page-detail.beschreibung-text {
     grid-area: bez;
     margin: 0 0 20px 0;
 }
 
-.leer2 {
+.page-detail.leer2 {
     grid-area: leer2;
     margin: 0 0 20px 0;
 }
 
-.prio-label {
+.page-detail.prio-label {
     grid-area: priolabel;
     height: var(--height);
     margin: 0 0 20px 0;
 }
 
-.prio-container-status {
+.page-detail.prio-container-status {
     grid-area: prio;
     display: flex;
     height: var(--height);
@@ -135,18 +86,18 @@
     height: var(--height);
 }
 
-.leer3 {
+.page-detail.leer3 {
     grid-area: leer3;
     margin: 0 0 20px 0;
 }
 
-.datum-label {
+.page-detail.datum-label {
     grid-area: datumlabel;
     height: var(--height);
     margin: 0 0 20px 0;
 }
 
-.datum-container-input {
+.page-detail.datum-container-input {
     grid-area: datum;
     height: var(--height);
     display: flex;
@@ -163,82 +114,33 @@
     margin: 0 10px 0 0;
 }
 
-.leer4 {
+.page-detail.leer4 {
     grid-area: leer4;
     margin: 0 0 20px 0;
 }
 
-.speichern {
+.page-detail.speichern {
     grid-area: save;
     margin: 0 0 20px 0;
 }
 
-.leer5 {
+.page-detail.leer5 {
     grid-area: leer5;
     margin: 0 0 20px 0;
 }
 
-.cancel {
+.page-detail.cancel {
     grid-area: cancel;
     margin: 0 0 20px 0;
 }
 
-.footer { 
+.page-detail.footer { 
     grid-area: footer; 
     background-color: var(--footer-background-color);
     color: var(--footer-color);
 }
 
 /* Klassen zu einzelnen wiederkehrenden Elementen */
-.button-style-1 {
-    /*
-    width: 100%;
-    height: 100%;
-    */
-    border: 2px solid;
-    border-radius: 3px;
-    font-weight: 700;
-    padding: 5px;
-    background-color: var(--button-1-background-color);
-    color: var(--button-1-color);
-}
-
-.button-style-1:hover {
-    background-color: var(--button-1-hover-background-color);
-    color: var(--button-1-hover-color);
-}
-
-.button-style-1 > a {
-    text-decoration: none;
-    background-color: var(--button-1-background-color);
-    color: var(--button-1-color);
-}
-
-.button-style-1:hover {
-    background-color: var(--button-1-hover-background-color);
-    color: var(--button-1-hover-color);
-}
-
-.button-style-1 > a:visited { 
-    background-color: var(--button-1-hover-background-color);
-    color: var(--button-1-hover-color);
-}
-
-.button-style-1 > a:hover { 
-    background-color: var(--button-1-hover-background-color);
-    color: var(--button-1-hover-color);
-}
-
-.textbox-style-1 {
-    background-color: var(--textbox-1-background-color);
-    color: var(--textbox-1-color);
-}
-
-.blitz {
-    max-width: 100%;
-    max-height: 100%;
-}
-
 .kalender {
     max-height: var(--height);
 }

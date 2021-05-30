@@ -17,15 +17,15 @@ export class NotizService {
     #aNotizen;
 
     /** Konstruktor */
-    constructor(oNotiz = null) {
+    constructor(_oNotiz = null) {
 
-        if(oNotiz != null) {
+        if(_oNotiz != null) {
             this.#oDatumAbgeschlossen = null;
             this.#oDatumErstellt = new Date();
-            this.#sTitel = oNotiz.sTitel || '';
-            this.#sBeschreibung = oNotiz.sBeschreibung || '';
-            this.#iPrio = oNotiz.iPrio || 5;
-            this.#oDatumZuErledigenBis = oNotiz.oDatumZuErledigenBis || new Date();
+            this.#sTitel = _oNotiz.sTitel || '';
+            this.#sBeschreibung = _oNotiz.sBeschreibung || '';
+            this.#iPrio = _oNotiz.iPrio || 5;
+            this.#oDatumZuErledigenBis = _oNotiz.oDatumZuErledigenBis || new Date();
             this.#bStatus = false;
         }
 
@@ -36,25 +36,25 @@ export class NotizService {
     /** Private Methoden */
 
     /* Erledigte Datensaetze zurückgeben */
-    #getErledigteDatensaetze(aNotizen) {
-        return aNotizen.filter(datensatz => datensatz.bStatus === true);
+    #getErledigteDatensaetze(_aNotizen) {
+        return _aNotizen.filter(datensatz => datensatz.bStatus === true);
     }
 
     /* Sortierfunktionen */
-    #compareZuErledigen(s1, s2) {
-        const oDate1 = new Date(s1.oDatumZuErledigenBis);
-        const oDate2 = new Date(s2.oDatumZuErledigenBis);
+    #compareZuErledigen(_s1, _s2) {
+        const oDate1 = new Date(_s1.oDatumZuErledigenBis);
+        const oDate2 = new Date(_s2.oDatumZuErledigenBis);
         return oDate2 - oDate1;
     }
 
-    #compareErstellt(s1, s2) {
-        const oDate1 = new Date(s1.oDatumErstellt);
-        const oDate2 = new Date(s2.oDatumErstellt);
+    #compareErstellt(_s1, _s2) {
+        const oDate1 = new Date(_s1.oDatumErstellt);
+        const oDate2 = new Date(_s2.oDatumErstellt);
         return oDate2 - oDate1;
     }
 
-    #comparePrio(s1, s2) {
-        return s1.iPrio - s2.iPrio;
+    #comparePrio(_s1, _s2) {
+        return _s1.iPrio - _s2.iPrio;
     }
 
     /** Setter */
@@ -115,30 +115,30 @@ export class NotizService {
     /** Public Methoden */
 
     /* Datensatz anhand Id zurueckgeben */
-    getDatensatzById(iId) {
+    getDatensatzById(_iId) {
         this.#aNotizen = this.#oNotizStorage.getAlleDatensaetze();
-        return this.#aNotizen.find(datensatz => parseInt(iId) === parseInt(datensatz.id));
+        return this.#aNotizen.find(datensatz => parseInt(_iId) === parseInt(datensatz.id));
     }
 
     /* Datensaetze zurueckgeben */
-    getDatensaetze(sortingTyp = 'erledigt',
-                   filterTyp = '') {
+    getDatensaetze(_sortingTyp = 'erledigt',
+                   _filterTyp = '') {
 
         this.#aNotizen = this.#oNotizStorage.getAlleDatensaetze();
        
         // Alle Datensaetze oder nur Erledigte anzeigen
-        if(filterTyp =='abgeschlossen') {
+        if(_filterTyp =='abgeschlossen') {
             this.#aNotizen = this.#getErledigteDatensaetze(this.#aNotizen);
-        } else
-
+        }
+        
         // Sortierung der Datensaetze
-        if(sortingTyp == 'erledigt') {
+        if(_sortingTyp == 'erledigt') {
             return this.#aNotizen.sort(this.#compareZuErledigen);
 
-        } else if(sortingTyp == 'erstellt') {
+        } else if(_sortingTyp == 'erstellt') {
             return this.#aNotizen.sort(this.#compareErstellt);
 
-        } else if(sortingTyp == 'prio') {
+        } else if(_sortingTyp == 'prio') {
             return this.#aNotizen.sort(this.#comparePrio);
         }
     }

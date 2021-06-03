@@ -6,8 +6,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js" 
           integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" 
           crossorigin="anonymous" 
-          defer>
-
+          defer></script>
+  <script defer>
     // {{#xIf list.length '>' 0 '&&' public '==' true}} <p>condition satisfied</p>{{/xIf}}
     Handlebars.registerHelper('xIf', function (v1,o1,v2,mainOperator,v3,o2,v4,options) {
           var operators = {
@@ -28,10 +28,14 @@
           return isTrue ? options.fn(this) : options.inverse(this);
     });
   </script>
+  <!-- Klassen Importe-->
+  <script src="js/Controllers/todo-controller.js" 
+          type="module"
+          defer></script>
+
   <link rel="stylesheet" 
         href="styles/index.css">
-
-        <link rel="stylesheet" 
+  <link rel="stylesheet" 
         href="styles/notiz.css">
 
 </head>
@@ -43,11 +47,6 @@
     <main class="page-index content"></main>
     <footer class="page-index footer">footer</footer>
   </div>
-  <!-- Klassen Importe-->
-  <script src="js/Controllers/todo-controller.js" 
-          type="module">
-  </script>
-
   <!-- Handelbar Templates: Liste aller Notizen (Header)-->
   <script class="page-index notiz-liste-header-template" 
           type="text/x-handlebars-template">
@@ -91,6 +90,7 @@
   </script>
 
   <!-- Handelbar Templates: Liste aller Notizen (Content)-->
+  <!-- class="{{#xIf prio '>' 0 }} blitz-aktiv {{else}} blitz-inaktiv {{/xIf}}" -->
   <script class="page-index notiz-liste-content-template" 
           type="text/x-handlebars-template">
     {{#each notiz}}

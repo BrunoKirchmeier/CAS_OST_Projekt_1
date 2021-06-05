@@ -143,4 +143,14 @@ export class NotizService {
         }
     }
 
+    /* Neuen Datensatz erstellen */
+    saveDatensatz(_oNotiz) {
+        return this.#oNotizStorage.saveDatensatz(_oNotiz)
+    }
+
+    /* Datensatz löschen */
+    deleteDatensatz(_iId) {
+        return this.#oNotizStorage.deleteDatensatz(_iId)
+    }
+
 }

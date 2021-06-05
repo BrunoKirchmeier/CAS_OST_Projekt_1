@@ -21,51 +21,54 @@
 </head>
 <!-- Body-->
 <body>
-  <div class="body-container"
-       data-page-id="index">
+  <div class="body-container">
     <header class="page-index header"></header>
-    <main class="page-index content"></main>
+    <main class="page-index content">
+    </main>
     <footer class="page-index footer">footer</footer>
   </div>
   <!-- Handelbar Templates: Liste aller Notizen (Header)-->
   <script class="page-index notiz-liste-header-template" 
           type="text/x-handlebars-template">
     <div class="page-index header-row-1-col-1">
-      <button class="button-notiz-neu button-style-1" 
-              data-change-to-page="detail">Neue Notiz</button>
+      <button class="button-notiz-neu button-style-1">Neue Notiz</button>
     </div>
     <div class="page-index header-row-1-col-2"></div>
     <div class="page-index header-row-1-col-3">
-      <select class="button-style-1" 
+      <select class="button-change-style button-style-3" 
               name="selectStyle" >
         <option value="white" 
-                data-style-1>Layout Standard</option>
+                data-template-style=1>Layout Standard</option>
         <option value="dark" 
-                data-style-2>Layout Dunkel</option>
+                data-template-style=2>Layout Dunkel</option>
       </select>
     </div>
     <div class="page-index header-row-2-col-1">
-      <div class="radio-style-1">
+      <div class="button-change-sort radio-style-1">
         <input type="radio" 
               name="sortieren" 
               id="sortierenDatumErledigt" 
               value="erledigt"
+              data-sort-type="erledigt"
               checked>
         <label for="sortierenDatumErledigt">Nach Erledigungsdatum</label>
         <input type="radio" 
               name="sortieren"
               id="sortierenDatumErstellt" 
-              value="erstellt">
+              value="erstellt"
+              data-sort-type="erstellt">
         <label for="sortierenDatumErstellt">Nach Erstellungsdatum</label>
         <input type="radio" 
               name="sortieren"
               id="sortierenPrio" 
-              value="prio">
+              value="prio"
+              data-sort-type="prio">
         <label for="sortierenPrio">Nach Priorität</label>
       </div>
     </div>
     <div class="page-index header-row-2-col-2">
-      <button class="button-zeige-abgeschlossen button-style-1">Erledigte anzeigen</button>
+      <button class="button-zeige-abgeschlossen button-style-1"
+              data-filter-abgeschlossen="aus">Erledigte anzeigen</button>
     </div>
   </script>
 
@@ -128,10 +131,12 @@
           </svg>
         </label>
       </div>
-      <div class="page-index notiz-container-edit">
-        <button class="button-notiz-edit button-style-1"
-                data-notiz-id="{{id}}"
-                data-change-to-page="detail">Anpassen
+      <div class="page-index notiz-container-buttons">
+        <button class="button-notiz-edit button-style-2"
+                data-notiz-id="{{id}}">Anpassen
+        </button>
+        <button class="button-notiz-delete button-style-2"
+                data-notiz-id="{{id}}">Löschen
         </button>
       </div>
     </div>
@@ -154,21 +159,38 @@
     <div class="page-detail leer2"></div>
     <label class="page-detail prio-label" 
             for="prio">Wichtigkeit</label>
-    <div class="page-detail prio-container-status" id="prio">
+    <div  class="page-detail prio-container-status" 
+          id="prio"
+          data-notiz-id="{{id}}">
       <div>
-        <img class="blitz-inaktiv" src="./img/Blitz.jpg" alt="Blitz">
+        <img  class="blitz-inaktiv" 
+              src="./img/Blitz.jpg" 
+              alt="Blitz"
+              data-prio-wert=5>
       </div>
       <div>
-        <img class="blitz-inaktiv" src="./img/Blitz.jpg" alt="Blitz">
+        <img  class="blitz-inaktiv" 
+              src="./img/Blitz.jpg" 
+              alt="Blitz"
+              data-prio-wert=4>
       </div>
       <div>
-        <img class="blitz-inaktiv" src="./img/Blitz.jpg" alt="Blitz">
+        <img  class="blitz-inaktiv" 
+              src="./img/Blitz.jpg" 
+              alt="Blitz"
+              data-prio-wert=3>
       </div>
       <div>
-        <img class="blitz-inaktiv" src="./img/Blitz.jpg" alt="Blitz">
+        <img  class="blitz-inaktiv" 
+              src="./img/Blitz.jpg" 
+              alt="Blitz"
+              data-prio-wert=2>
       </div>
       <div>
-        <img class="blitz-inaktiv" src="./img/Blitz.jpg" alt="Blitz">
+        <img  class="blitz-inaktiv" 
+              src="./img/Blitz.jpg" 
+              alt="Blitz"
+              data-prio-wert=1>
       </div>
     </div>
     <div class="page-detail leer3"></div>
@@ -185,8 +207,7 @@
       </div>
     </div>
     <div class="page-detail leer4"></div>
-    <button class="page-detail speichern button-style-1"
-            data-change-to-page="index">Speichern</button>
+    <button class="page-detail speichern button-style-1">Speichern</button>
     <div class="page-detail leer5"></div>
     <button class="page-detail cancel button-style-1">Cancel</button>
   </script>

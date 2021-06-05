@@ -25,7 +25,7 @@ class TodoController {
             oNodeHeader.innerHTML = headerTemplateCompiled();
             oNodeContent.innerHTML = contentTemplateCompiled(
                 {notiz: this.oNotizService.getDatensaetze()},
-                {allowProtoPropertiesByDefault: true}
+                {allowProtoPropertiesByDefault: true},
             );
             /* Klasse für Page Bezeichung ändern */
             oNodeHeader.classList.remove('page-detail');
@@ -77,15 +77,65 @@ class TodoController {
 
     /** Datensatz speichern */
     saveDatensatz() {
-        const titel = document.querySelector('.page-detail titel-input');
-        const beschreibung = document.querySelector('.page-detail beschreibung-text');
-        const prio = 1;
-        const datumZuErledigenBis = document.querySelector('.datum-input');
+        let errMessages = [];
+        let titel = '';
+        let beschreibung = '';
+        let prio = 5;
+        let datumZuErledigenBis = '';
 
-        const res = this.oNotizService.saveDatensatz({sTitel: titel,
-                                                     sBeschreibung: beschreibung,
-                                                     iPrio: prio,
-                                                     oDatumZuErledigenBis: datumZuErledigenBis});
+        /** Eingabe Validierungen Client */
+        /** Feld: Titel */
+        let oNode = document.querySelector('.titel-input');
+        if (oNode === null
+            || typeof (oNode.value) !== 'string'
+            || oNode.value === '') {
+                errMessages.push({message: 'Feld Titel darf nicht leer sein'});
+        } else {
+            titel = oNode.value;
+        }
+
+        /** Feld: Beschreibung */
+        oNode = document.querySelector('.beschreibung-text');
+        if (oNode === null
+            || typeof (oNode.value) !== 'string'
+            || oNode.value === '') {
+                errMessages.push({message: 'Feld Beschreibung darf nicht leer sein'});
+        } else {
+            beschreibung = oNode.value;
+        }
+
+        /** Feld: Erledigen bis */
+        oNode = document.querySelector('.datum-input');
+        if (oNode === null
+            || typeof (oNode.value) !== 'string'
+            || Number.isNaN(Date.parse(oNode.value)) === true) {
+                errMessages.push({message: 'Feld Erledigt bis ist kein gültiges Datumsfeld'});
+        } else {
+            datumZuErledigenBis = oNode.value;
+        }
+
+        /** Validierungsfehler erkannt. Datensatz wird nicht geschrieben */
+        if (Object.keys(errMessages).length !== 0) {
+            /* View Template laden und in DOM einsetzen */
+            const oNodeValitaion = document.querySelector('.validation-container');
+            const validationTemplateCompiled = Handlebars.compile(document.querySelector('.page-detail.notiz-detail-validate-template').innerHTML);
+            oNodeValitaion.innerHTML = validationTemplateCompiled(
+                {error: errMessages},
+                {allowProtoPropertiesByDefault: true},
+            );
+
+        /** Schreiben in Datenbank */
+        } else {
+            const res = this.oNotizService
+                        .saveDatensatz({sTitel: titel,
+                                        sBeschreibung: beschreibung,
+                                        iPrio: prio,
+                                        oDatumZuErledigenBis: datumZuErledigenBis});
+
+            if(res === false) {
+                console.log(1);
+            }
+        }
     }
 
     /** Datensatz speichern */

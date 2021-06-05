@@ -1,6 +1,8 @@
 /* CSS Variablen Allgemein */
 :root {
     --height: 2em;
+    --validation-container-background-color: white;
+    --validation-container-color: red;
 }
 
 /* Grid Header / Content / Footer */
@@ -21,14 +23,15 @@
     grid-area: main;
     display: grid;
     grid-template-columns: repeat(12, 8.33333333%);
-    grid-template-rows: 1fr 5fr 1fr 1fr auto auto;
+    grid-template-rows: 1fr 5fr 1fr 1fr auto auto auto;
     grid-template-areas:
     "titellabel titellabel titellabel titel titel titel titel titel titel titel leer1 leer1 "
     "bezlabel bezlabel bezlabel bez bez bez bez bez bez bez leer2 leer2 "
     "priolabel priolabel priolabel prio prio prio prio prio prio prio leer3 leer3 "
     "datumlabel datumlabel datumlabel datum datum datum datum datum datum datum leer4 leer4 "
     "save save save save save save save save save save save save "
-    "leer5 leer5 leer5 leer5 leer5 leer5 leer5 leer5 leer5 leer5 cancel cancel ";
+    "leer5 leer5 leer5 leer5 leer5 leer5 leer5 leer5 leer5 leer5 cancel cancel " 
+    "valid valid valid valid valid valid valid valid valid valid valid valid ";
 
     margin: 0 0 30px 0;
     padding: 10px;
@@ -132,6 +135,13 @@
 .page-detail.cancel {
     grid-area: cancel;
     margin: 0 0 20px 0;
+}
+
+.page-detail.validation-container {
+    grid-area: valid;
+    margin: 0 0 20px 0;
+    background-color: var(--validation-container-background-color);
+    color: var(--validation-container-color);
 }
 
 .page-detail.footer { 

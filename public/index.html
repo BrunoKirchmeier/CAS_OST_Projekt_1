@@ -210,6 +210,15 @@
     <button class="page-detail speichern button-style-1">Speichern</button>
     <div class="page-detail leer5"></div>
     <button class="page-detail cancel button-style-1">Cancel</button>
+    <div class="page-detail validation-container"></div>
+  </script>
+  <!-- Handelbar Templates: Detail Notiz - Validierung-->
+  <script class="page-detail notiz-detail-validate-template" 
+          type="text/x-handlebars-template">
+    <h4>Eingabevalidierung Fehlermeldung: </h4>
+    {{#each error}}
+    <p>{{message}}</p>
+    {{/each}}
   </script>
 </body>
 </html>

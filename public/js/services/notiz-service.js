@@ -19,18 +19,28 @@ export class NotizService {
     /** Konstruktor */
     constructor(_oNotiz = null) {
 
+        this.#oNotizStorage = new NotizStorage();
+        this.#aNotizen = this.#oNotizStorage.getAlleDatensaetze();
+
         if(_oNotiz != null) {
+            this.#id = this.#aNotizen.length + 1;
             this.#oDatumAbgeschlossen = null;
-            this.#oDatumErstellt = new Date('2020-05-01');
+            this.#oDatumErstellt = new Date();
             this.#sTitel = _oNotiz.sTitel || '';
             this.#sBeschreibung = _oNotiz.sBeschreibung || '';
             this.#iPrio = _oNotiz.iPrio || 5;
             this.#oDatumZuErledigenBis = _oNotiz.oDatumZuErledigenBis || new Date();
             this.#bStatus = false;
+        } else {
+            this.#id = this.#aNotizen.length + 1;
+            this.#oDatumAbgeschlossen = null;
+            this.#oDatumErstellt = new Date();
+            this.#sTitel = '';
+            this.#sBeschreibung = '';
+            this.#iPrio = 5;
+            this.#oDatumZuErledigenBis = new Date();
+            this.#bStatus = false;
         }
-
-        this.#oNotizStorage = new NotizStorage();
-        this.#aNotizen = this.#oNotizStorage.getAlleDatensaetze();
     }
 
     /** Private Methoden */
@@ -116,8 +126,25 @@ export class NotizService {
 
     /* Datensatz anhand Id zurueckgeben */
     getDatensatzById(_iId) {
+        /* Datensatz laden */
         this.#aNotizen = this.#oNotizStorage.getAlleDatensaetze();
-        return this.#aNotizen.find(datensatz => parseInt(_iId) === parseInt(datensatz.id));
+        const datensatz = this.#aNotizen.find(datensatz => parseInt(_iId) === parseInt(datensatz.id)); 
+        /* Datensatz prüfen */
+        if(datensatz === undefined) {
+            return false;
+        } else {
+            /* Datensatz Inhalt prüfen */
+            if(datensatz.hasOwnProperty('oDatumErstellt')) {
+                /* Datum Erstellung formatieren */
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                let oDatum = new Date(datensatz.oDatumErstellt);
+                datensatz.oDatumErstellt = oDatum.toLocaleDateString('de-DE', options);
+                return datensatz;
+            /* Datensatz Inhalt fehlerhaft*/
+            } else {
+                return false;
+            }
+        }
     }
 
     /* Datensaetze zurueckgeben */
@@ -143,9 +170,29 @@ export class NotizService {
         }
     }
 
-    /* Neuen Datensatz erstellen */
-    saveDatensatz(_oNotiz) {
-        return this.#oNotizStorage.saveDatensatz(_oNotiz)
+    /* Datensatz speichern */
+    saveDatensatz(_oNotiz, _iId) {
+        /* Datensatz Neu */
+        if (_iId === undefined) {
+            const oNotiz = {sTitel: _oNotiz.sTitel,
+                            sBeschreibung: _oNotiz.sBeschreibung,
+                            iPrio: _oNotiz.iPrio,
+                            oDatumZuErledigenBis: _oNotiz.oDatumZuErledigenBis,
+                            oDatumAbgeschlossen: this.#oDatumAbgeschlossen,
+                            oDatumErstellt: this.#oDatumErstellt,
+                            bStatus: this.#bStatus };
+            return this.#oNotizStorage.insertDatensatz(oNotiz);
+
+        /* Datensatz Update */   
+        } else {
+            const oNotizDatenbank = this.#oNotizStorage.getDatensatzById(_iId);
+            for( let property in oNotizDatenbank) {
+                if(_oNotiz.hasOwnProperty(property) === true) {
+                    oNotizDatenbank[property] = _oNotiz[property];
+                } 
+            }
+            return this.#oNotizStorage.updateDatensatz(oNotizDatenbank);
+        }
     }
 
     /* Datensatz löschen */

@@ -24,7 +24,7 @@ export class NotizStorage {
     }
 
     /* Neuen Datensatz erstellen */
-    saveDatensatz(_oNotiz) {
+    insertDatensatz(_oNotiz) {
         this.getAlleDatensaetze();
         _oNotiz.id = this.#aNotizen.length + 1;
         this.#aNotizen.push(_oNotiz);
@@ -44,6 +44,7 @@ export class NotizStorage {
         const index = this.#aNotizen.findIndex(datensatz => datensatz.id == _oNotiz.id);
         if(index > -1) {
             this.#aNotizen[index] = _oNotiz;
+            localStorage.setItem('NotizStorage_v1', JSON.stringify(this.#aNotizen));
             return true;
         } else {
             return false;

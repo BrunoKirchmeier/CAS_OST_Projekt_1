@@ -10,13 +10,14 @@ class TodoController {
     }
 
     /** Public Methoden */
-    renderPage(Page) {
+    renderPage(e1, Page) {
         /* Aktuelle Ansicht löschen */
         const oNodeHeader = document.querySelector('.header');
         const oNodeContent = document.querySelector('.content');
         const oNodeFooter = document.querySelector('.footer');
         oNodeHeader.textContent = '';
         oNodeContent.textContent = '';
+
         /* PAGE: Index */
         if (Page === 'index') {
             /* View Template laden und in DOM einsetzen */
@@ -43,19 +44,27 @@ class TodoController {
             const oNodeButtonDeleteNotiz = document.querySelectorAll('.button-notiz-delete');
             const oNodeButtonFinishedNotiz = document.querySelectorAll('.notiz-status');
 
-            oNodeButtonNeueNotiz.addEventListener('click', () => this.renderPage('detail'));
+            oNodeButtonNeueNotiz.addEventListener('click', (e2) => this.renderPage(e2, 'detail'));
             oNodeButtonEditNotiz.forEach((oNode) => {
-                oNode.addEventListener('click', () => this.renderPage('detail'));
+                oNode.addEventListener('click', (e2) => this.renderPage(e2, 'detail'));
             });
             oNodeButtonDeleteNotiz.forEach((oNode) => {
-                oNode.addEventListener('click', (e) => this.deleteDatensatz(e));
+                oNode.addEventListener('click', (e2) => this.deleteDatensatz(e2));
             });
 
         /* PAGE: Detail */
         } else if (Page === 'detail') {
             /* View Template laden und in DOM einsetzen */
             const contentTemplateCompiled = Handlebars.compile(document.querySelector('.page-detail.notiz-detail-template').innerHTML);
-            oNodeContent.innerHTML = contentTemplateCompiled();
+            if (e1 !== undefined
+                && e1.target.dataset.notizId !== undefined) {
+                    oNodeContent.innerHTML = contentTemplateCompiled(
+                        {notiz: this.oNotizService.getDatensatzById(e1.target.dataset.notizId)},
+                        {allowProtoPropertiesByDefault: true},
+                    );
+            } else {
+                oNodeContent.innerHTML = contentTemplateCompiled();
+            }
             /* Klasse für Page Bezeichung ändern */
             oNodeHeader.classList.remove('page-index');
             oNodeHeader.classList.add('page-detail');
@@ -70,14 +79,14 @@ class TodoController {
 
 
 
-            oNodeButtonCancel.addEventListener('click', () => this.renderPage('index'));
-            oNodeButtonSpeichern.addEventListener('click', () => this.saveDatensatz());
+            oNodeButtonCancel.addEventListener('click', (e2) => this.renderPage(e2, 'index'));
+            oNodeButtonSpeichern.addEventListener('click', (e2) => this.saveDatensatz(e2));
         }
     }
 
     /** Datensatz speichern */
-    saveDatensatz() {
-        let errMessages = [];
+    saveDatensatz(e) {
+        const errMessages = [];
         let titel = '';
         let beschreibung = '';
         let prio = 5;
@@ -126,16 +135,26 @@ class TodoController {
 
         /** Schreiben in Datenbank */
         } else {
-            /* Schreiben in Datenbank */
-            const res = this.oNotizService
-                        .saveDatensatz({sTitel: titel,
-                                        sBeschreibung: beschreibung,
-                                        iPrio: prio,
-                                        oDatumZuErledigenBis: datumZuErledigenBis});
+            let res = false;
+            const oNotiz = {sTitel: titel,
+                            sBeschreibung: beschreibung,
+                            iPrio: prio,
+                            oDatumZuErledigenBis: datumZuErledigenBis};
+
+            /** Pruefen ob es sich um ein Update oder einen neuen Datensatz handelt */
+            if (e !== undefined
+                && e.target.dataset.notizId !== undefined
+                && e.target.dataset.notizId > 0) {
+                /* Update in Datenbank */
+                res = this.oNotizService.saveDatensatz(oNotiz, e.target.dataset.notizId);
+            } else {
+                /* Neu in Datenbank */
+                res = this.oNotizService.saveDatensatz(oNotiz);
+            }
 
             /* View Template index neu laden */
             if (res === true) {
-                this.renderPage('index');
+                this.renderPage(undefined, 'index');
             } else {
                 console.log('unbekannter Fehler'); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             }
@@ -146,11 +165,12 @@ class TodoController {
     deleteDatensatz(e) {
         const res = this.oNotizService.deleteDatensatz(e.target.dataset.notizId);
         if (res === true) {
-            this.renderPage('index');
+            this.renderPage(undefined, 'index');
         }
     }
 }
 
 /* Instanzierung Controller */
 const oTodo = new TodoController();
-oTodo.renderPage('index');
+const e = undefined;
+oTodo.renderPage(e, 'index');

@@ -31,7 +31,8 @@
   <script class="page-index notiz-liste-header-template" 
           type="text/x-handlebars-template">
     <div class="page-index header-row-1-col-1">
-      <button class="button-notiz-neu button-style-1">Neue Notiz</button>
+      <button class="button-notiz-neu button-style-1"
+              data-jump-to-page="detail">Neue Notiz</button>
     </div>
     <div class="page-index header-row-1-col-2"></div>
     <div class="page-index header-row-1-col-3">
@@ -133,7 +134,8 @@
       </div>
       <div class="page-index notiz-container-buttons">
         <button class="button-notiz-edit button-style-2"
-                data-notiz-id="{{id}}">Anpassen
+                data-notiz-id="{{id}}"
+                data-jump-to-page="detail">Anpassen
         </button>
         <button class="button-notiz-delete button-style-2"
                 data-notiz-id="{{id}}">Löschen
@@ -151,12 +153,12 @@
     <input class="page-detail titel-input textbox-style-1" 
             type="text" 
             id="titel"
-            value="{{sTitel}}">
+            value="{{notiz.sTitel}}">
     <div class="page-detail leer1"></div>
     <label class="page-detail beschreibung-label" 
             for="beschreibung">Beschreibung</label>
     <textarea class="page-detail beschreibung-text textbox-style-1" 
-              id="beschreibung">{{sBeschreibung}}</textarea>
+              id="beschreibung">{{notiz.sBeschreibung}}</textarea>
     <div class="page-detail leer2"></div>
     <label class="page-detail prio-label" 
             for="prio">Wichtigkeit</label>
@@ -200,13 +202,16 @@
       <input class="datum-input textbox-style-1" 
               type="date" 
               id="datum"
-              value="{{oDatumZuErledigenBis}}">
+              value="{{notiz.oDatumZuErledigenBis}}">
     </div>
     <p class="page-detail datum-erstellt-label">Datum Erstellt:</p>
-    <p class="page-detail datum-erstellt">{{oDatumErstellt}}</p>
-    <button class="page-detail speichern button-style-1">Speichern</button>
+    <p class="page-detail datum-erstellt">{{notiz.oDatumErstellt}}</p>
+    <button class="page-detail speichern button-style-1"
+            data-jump-to-page="index"
+            data-notiz-id="{{notiz.id}}">Speichern</button>
     <div class="page-detail leer5"></div>
-    <button class="page-detail cancel button-style-1">Cancel</button>
+    <button class="page-detail cancel button-style-1"
+            data-jump-to-page="index">Cancel</button>
     <div class="page-detail validation-container"></div>
   </script>
   <!-- Handelbar Templates: Detail Notiz - Validierung-->

@@ -153,6 +153,14 @@ export class NotizService {
 
         this.#aNotizen = this.#oNotizStorage.getAlleDatensaetze();
        
+        // Anzeige Datumswerte formatieren
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        this.#aNotizen.forEach(datensatz => {
+            /* Datum Erledigen bis formatieren */
+            let oDatum = new Date(datensatz.oDatumZuErledigenBis);
+            datensatz.oDatumZuErledigenBis = oDatum.toLocaleDateString('de-DE', options);
+        });
+
         // Alle Datensaetze oder nur Erledigte anzeigen
         if(_filterTyp =='abgeschlossen') {
             this.#aNotizen = this.#getErledigteDatensaetze(this.#aNotizen);
@@ -161,10 +169,8 @@ export class NotizService {
         // Sortierung der Datensaetze
         if(_sortingTyp == 'erledigt') {
             return this.#aNotizen.sort(this.#compareZuErledigen);
-
         } else if(_sortingTyp == 'erstellt') {
             return this.#aNotizen.sort(this.#compareErstellt);
-
         } else if(_sortingTyp == 'prio') {
             return this.#aNotizen.sort(this.#comparePrio);
         }

@@ -3,10 +3,17 @@ import {NotizService} from '../services/notiz-service.js';
 
 /* Controller Todo */
 class TodoController {
+
+    /** Private Eigenschaften */
+    #sortierung;
+    #filter;
+
     /** Konstruktor */
     constructor() {
         /** Model instanzieren */
         this.oNotizService = new NotizService();
+        this.#sortierung = 'erledigt';
+        this.#filter = '';
     }
 
     /** Public Methoden */
@@ -25,9 +32,12 @@ class TodoController {
             const contentTemplateCompiled = Handlebars.compile(document.querySelector('.page-index.notiz-liste-content-template').innerHTML);
             oNodeHeader.innerHTML = headerTemplateCompiled();
             oNodeContent.innerHTML = contentTemplateCompiled(
-                {notiz: this.oNotizService.getDatensaetze()},
+                {notiz: this.oNotizService.getDatensaetze(this.#sortierung, this.#filter)},
                 {allowProtoPropertiesByDefault: true},
             );
+            /* Radion Sortieren auf Checked setzen */
+            const oNode = document.querySelector('input[name="sortieren"][value="' + this.#sortierung + '"');
+            oNode.checked = true;
             /* Klasse für Page Bezeichung ändern */
             oNodeHeader.classList.remove('page-detail');
             oNodeHeader.classList.add('page-index');
@@ -45,6 +55,8 @@ class TodoController {
             const oNodeButtonFinishedNotiz = document.querySelectorAll('.notiz-status');
 
             oNodeButtonNeueNotiz.addEventListener('click', (e2) => this.renderPage(e2, 'detail'));
+            oNodeButtonChangeStyle.addEventListener('change', (e2) => this.changeStyle(e2));
+            oNodeButtonChangeSort.addEventListener('change', (e2) => this.changeSort(e2));
             oNodeButtonEditNotiz.forEach((oNode) => {
                 oNode.addEventListener('click', (e2) => this.renderPage(e2, 'detail'));
             });
@@ -151,12 +163,9 @@ class TodoController {
                 /* Neu in Datenbank */
                 res = this.oNotizService.saveDatensatz(oNotiz);
             }
-
             /* View Template index neu laden */
             if (res === true) {
                 this.renderPage(undefined, 'index');
-            } else {
-                console.log('unbekannter Fehler'); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             }
         }
     }
@@ -168,9 +177,26 @@ class TodoController {
             this.renderPage(undefined, 'index');
         }
     }
+
+    /** Layout Style ändern */
+    changeStyle(e) {
+        this.oNodeBody = document.querySelector('.body-container');
+        if (e.target.value === 'white') {
+            this.oNodeBody.classList.remove('style-mode-dark');
+        } else if (e.target.value === 'dark') {
+            this.oNodeBody.classList.add('style-mode-dark');
+        }
+    }
+
+    /** Sortierung der Liste der Datensätze ändern */
+    changeSort(e) {
+        this.#sortierung = e.target.value;
+        this.renderPage(undefined, 'index');
+        // const oNode = document.querySelector('input[name="sortieren"][value="' + e.target.value + '"');
+        // oNode.checked = true;
+    }
 }
 
 /* Instanzierung Controller */
 const oTodo = new TodoController();
-const e = undefined;
-oTodo.renderPage(e, 'index');
+oTodo.renderPage(undefined, 'index');

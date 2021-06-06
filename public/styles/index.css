@@ -32,9 +32,9 @@
     --textbox-1-color: black;
 }
 
-.dark-mode {
-    --background-color: white;
-    --font-color: black;
+.style-mode-dark {
+    --background-color: black;
+    --font-color: white;
     --button-1-background-color: rgb(202,225,255);
     --button-1-color: black;
     --button-1-hover-background-color: rgb(30,144,255);
@@ -53,14 +53,14 @@
     --radio-1-hover-color: black;
     --radio-1-checked-background-color: rgb(30,144,255);
     --radio-1-checked-color: black;
-    --header-background-color: white;
-    --header-color: black;
-    --main-background-color: white;
-    --main-color: black;
-    --footer-background-color: white;
-    --footer-color: black;
-    --notiz-background-color: white;
-    --notiz-color: black;
+    --header-background-color: black;
+    --header-color: white;
+    --main-background-color: black;
+    --main-color: white;
+    --footer-background-color: black;
+    --footer-color: white;
+    --notiz-background-color: grey;
+    --notiz-color: white;
     --textbox-1-background-color: white;
     --textbox-1-color: black;
 }

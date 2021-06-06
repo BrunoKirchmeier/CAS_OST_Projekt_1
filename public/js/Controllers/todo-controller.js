@@ -13,7 +13,7 @@ class TodoController {
         /** Model instanzieren */
         this.oNotizService = new NotizService();
         this.#sortierung = 'erledigt';
-        this.#filter = '';
+        this.#filter = 'offen';
     }
 
     /** Public Methoden */
@@ -57,6 +57,12 @@ class TodoController {
             oNodeButtonNeueNotiz.addEventListener('click', (e2) => this.renderPage(e2, 'detail'));
             oNodeButtonChangeStyle.addEventListener('change', (e2) => this.changeStyle(e2));
             oNodeButtonChangeSort.addEventListener('change', (e2) => this.changeSort(e2));
+            oNodeButtonFilterAbgeschlossen.addEventListener('click', (e2) => this.changeFilter(e2));
+
+            oNodeButtonFinishedNotiz.forEach((oNode) => {
+                oNode.addEventListener('click', (e2) => this.setAbgeschlossen(e2));
+            });
+
             oNodeButtonEditNotiz.forEach((oNode) => {
                 oNode.addEventListener('click', (e2) => this.renderPage(e2, 'detail'));
             });
@@ -192,9 +198,34 @@ class TodoController {
     changeSort(e) {
         this.#sortierung = e.target.value;
         this.renderPage(undefined, 'index');
-        // const oNode = document.querySelector('input[name="sortieren"][value="' + e.target.value + '"');
-        // oNode.checked = true;
     }
+
+    /** Filtern der Liste der anzuzeigenden Datensätze */
+    changeFilter(e) {
+        /** Abgeschlossene Element ausblenden */
+        if(e.target.dataset.filterAbgeschlossen === 'aus') {
+            e.target.dataset.filterAbgeschlossen = 'ein';
+            e.target.classList.add('button-ist-aktiv');
+            console
+            this.#filter = '';
+            this.renderPage(undefined, 'index');
+
+        /** Alle Emenete anzeigen */
+        } else {
+            e.target.dataset.filterAbgeschlossen = 'aus';
+            e.target.classList.remove('button-ist-aktiv');
+            this.#filter = 'offen';
+            this.renderPage(undefined, 'index');
+        }
+    }
+
+    /** Todo als abgeschlossen markieren */
+    setAbgeschlossen (e) {
+        const datensatz = this.oNotizService.getDatensatzById(e.target.dataset.notizId);
+        const oNotiz = datensatz.bStatus === true ? {bStatus: false} : {bStatus: true};
+        const res = this.oNotizService.saveDatensatz(oNotiz, e.target.dataset.notizId);
+    }
+
 }
 
 /* Instanzierung Controller */

@@ -2,6 +2,8 @@
 :root {
     --background-color: white;
     --font-color: black;
+    --button-aktiv-background-color: rgb(30,144,255);
+    --button-aktiv-color: black;
     --button-1-background-color: rgb(202,225,255);
     --button-1-color: black;
     --button-1-hover-background-color: rgb(30,144,255);
@@ -35,6 +37,8 @@
 .style-mode-dark {
     --background-color: black;
     --font-color: white;
+    --button-aktiv-background-color: rgb(30,144,255);
+    --button-aktiv-color: black;
     --button-1-background-color: rgb(202,225,255);
     --button-1-color: black;
     --button-1-hover-background-color: rgb(30,144,255);
@@ -302,4 +306,9 @@
 .textarea {
     resize: none;
     border: none;
+}
+
+.button-ist-aktiv {
+    background-color: var(--button-aktiv-background-color);
+    color: var(--button-aktiv-color);
 }

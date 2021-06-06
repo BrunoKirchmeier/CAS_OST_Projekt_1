@@ -45,9 +45,9 @@ export class NotizService {
 
     /** Private Methoden */
 
-    /* Erledigte Datensaetze zurückgeben */
-    #getErledigteDatensaetze(_aNotizen) {
-        return _aNotizen.filter(datensatz => datensatz.bStatus === true);
+    /* Nur offene Datensaetze zurückgeben */
+    #getOffeneDatensaetze(_aNotizen) {
+        return _aNotizen.filter(datensatz => datensatz.bStatus !== true);
     }
 
     /* Sortierfunktionen */
@@ -162,8 +162,8 @@ export class NotizService {
         });
 
         // Alle Datensaetze oder nur Erledigte anzeigen
-        if(_filterTyp =='abgeschlossen') {
-            this.#aNotizen = this.#getErledigteDatensaetze(this.#aNotizen);
+        if(_filterTyp =='offen') {
+            this.#aNotizen = this.#getOffeneDatensaetze(this.#aNotizen);
         }
         
         // Sortierung der Datensaetze

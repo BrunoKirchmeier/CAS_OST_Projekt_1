@@ -62,7 +62,7 @@
       </div>
     </div>
     <div class="page-index header-row-2-col-2">
-      <button class="button-zeige-abgeschlossen button-style-1"
+      <button class="button-zeige-abgeschlossen button-style-1 element-aktiv"
               data-filter-abgeschlossen="aus">Erledigte anzeigen</button>
     </div>
   </script>
@@ -110,7 +110,9 @@
         <input class="notiz-status" 
                 type="checkbox" 
                 id ="notizStatus"
-                name="notizStatus">
+                name="notizStatus"
+                {{#if bStatus}} checked {{/if}}
+                data-notiz-id="{{id}}">
         <label for="notizStatus">Finished</label>
       </div>
       <div class="page-index notiz-container-text">

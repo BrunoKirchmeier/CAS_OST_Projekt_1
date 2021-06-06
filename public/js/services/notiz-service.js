@@ -21,7 +21,7 @@ export class NotizService {
 
         if(_oNotiz != null) {
             this.#oDatumAbgeschlossen = null;
-            this.#oDatumErstellt = new Date();
+            this.#oDatumErstellt = new Date('2020-05-01');
             this.#sTitel = _oNotiz.sTitel || '';
             this.#sBeschreibung = _oNotiz.sBeschreibung || '';
             this.#iPrio = _oNotiz.iPrio || 5;

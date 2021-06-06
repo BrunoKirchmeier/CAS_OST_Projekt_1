@@ -126,14 +126,18 @@ class TodoController {
 
         /** Schreiben in Datenbank */
         } else {
+            /* Schreiben in Datenbank */
             const res = this.oNotizService
                         .saveDatensatz({sTitel: titel,
                                         sBeschreibung: beschreibung,
                                         iPrio: prio,
                                         oDatumZuErledigenBis: datumZuErledigenBis});
 
-            if(res === false) {
-                console.log(1);
+            /* View Template index neu laden */
+            if (res === true) {
+                this.renderPage('index');
+            } else {
+                console.log('unbekannter Fehler'); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             }
         }
     }

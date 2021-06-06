@@ -150,12 +150,13 @@
             for="titel">Title</label>
     <input class="page-detail titel-input textbox-style-1" 
             type="text" 
-            id="titel">
+            id="titel"
+            value="{{sTitel}}">
     <div class="page-detail leer1"></div>
     <label class="page-detail beschreibung-label" 
             for="beschreibung">Beschreibung</label>
     <textarea class="page-detail beschreibung-text textbox-style-1" 
-              id="beschreibung"></textarea>
+              id="beschreibung">{{sBeschreibung}}</textarea>
     <div class="page-detail leer2"></div>
     <label class="page-detail prio-label" 
             for="prio">Wichtigkeit</label>
@@ -193,20 +194,16 @@
               data-prio-wert=1>
       </div>
     </div>
-    <div class="page-detail leer3"></div>
     <label class="page-detail datum-label" 
-            for="datum">Erledigt bis:</label>
+            for="datum">Zu Erledigen bis:</label>
     <div class="page-detail datum-container-input">
       <input class="datum-input textbox-style-1" 
               type="date" 
-              id="datum">
-      <div class="container-datum-bild">
-        <img class="kalender" 
-              src="./img/Kalender.png" 
-              alt="Kalender">
-      </div>
+              id="datum"
+              value="{{oDatumZuErledigenBis}}">
     </div>
-    <div class="page-detail leer4"></div>
+    <p class="page-detail datum-erstellt-label">Datum Erstellt:</p>
+    <p class="page-detail datum-erstellt">{{oDatumErstellt}}</p>
     <button class="page-detail speichern button-style-1">Speichern</button>
     <div class="page-detail leer5"></div>
     <button class="page-detail cancel button-style-1">Cancel</button>

@@ -45,7 +45,7 @@ class TodoController {
             oNodeContent.classList.add('page-index');
             oNodeFooter.classList.remove('page-detail');
             oNodeFooter.classList.add('page-index');
-            /* Eventlistener Registrieren */
+            /* Dom Selektion */
             const oNodeButtonNeueNotiz = document.querySelector('.button-notiz-neu');
             const oNodeButtonChangeStyle = document.querySelector('.button-change-style');
             const oNodeButtonChangeSort = document.querySelector('.button-change-sort');
@@ -53,16 +53,22 @@ class TodoController {
             const oNodeButtonEditNotiz = document.querySelectorAll('.button-notiz-edit');
             const oNodeButtonDeleteNotiz = document.querySelectorAll('.button-notiz-delete');
             const oNodeButtonFinishedNotiz = document.querySelectorAll('.notiz-status');
-
+            /* Attributte und Klasse für Buttons ändern */
+            if(this.#filter === '') {
+                oNodeButtonFilterAbgeschlossen.dataset.filterAbgeschlossen = 'ein';
+                oNodeButtonFilterAbgeschlossen.classList.add('button-ist-aktiv');
+            } else {
+                oNodeButtonFilterAbgeschlossen.dataset.filterAbgeschlossen = 'aus';
+                oNodeButtonFilterAbgeschlossen.classList.remove('button-ist-aktiv');
+            }
+            /* Eventlistener Registrieren */
             oNodeButtonNeueNotiz.addEventListener('click', (e2) => this.renderPage(e2, 'detail'));
             oNodeButtonChangeStyle.addEventListener('change', (e2) => this.changeStyle(e2));
             oNodeButtonChangeSort.addEventListener('change', (e2) => this.changeSort(e2));
             oNodeButtonFilterAbgeschlossen.addEventListener('click', (e2) => this.changeFilter(e2));
-
             oNodeButtonFinishedNotiz.forEach((oNode) => {
                 oNode.addEventListener('click', (e2) => this.setAbgeschlossen(e2));
             });
-
             oNodeButtonEditNotiz.forEach((oNode) => {
                 oNode.addEventListener('click', (e2) => this.renderPage(e2, 'detail'));
             });
@@ -90,9 +96,10 @@ class TodoController {
             oNodeContent.classList.add('page-detail');
             oNodeFooter.classList.remove('page-index');
             oNodeFooter.classList.add('page-detail');
-            /* Eventlistener Registrieren */
+            /* Dom Selektion */
             const oNodeButtonCancel = document.querySelector('.cancel');
             const oNodeButtonSpeichern = document.querySelector('.speichern');
+            /* Eventlistener Registrieren */
             const oNodeButtonPrio = document.querySelectorAll('.prio-container-status');
 
 
@@ -203,17 +210,11 @@ class TodoController {
     /** Filtern der Liste der anzuzeigenden Datensätze */
     changeFilter(e) {
         /** Abgeschlossene Element ausblenden */
-        if(e.target.dataset.filterAbgeschlossen === 'aus') {
-            e.target.dataset.filterAbgeschlossen = 'ein';
-            e.target.classList.add('button-ist-aktiv');
-            console
+        if(e.target.dataset.filterAbgeschlossen == 'aus') {
             this.#filter = '';
             this.renderPage(undefined, 'index');
-
         /** Alle Emenete anzeigen */
         } else {
-            e.target.dataset.filterAbgeschlossen = 'aus';
-            e.target.classList.remove('button-ist-aktiv');
             this.#filter = 'offen';
             this.renderPage(undefined, 'index');
         }
@@ -224,6 +225,7 @@ class TodoController {
         const datensatz = this.oNotizService.getDatensatzById(e.target.dataset.notizId);
         const oNotiz = datensatz.bStatus === true ? {bStatus: false} : {bStatus: true};
         const res = this.oNotizService.saveDatensatz(oNotiz, e.target.dataset.notizId);
+        console.log(e.target);
     }
 
 }

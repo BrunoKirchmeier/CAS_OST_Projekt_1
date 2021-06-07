@@ -109,11 +109,11 @@
       <div class="page-index notiz-container-status">
         <input class="notiz-status" 
                 type="checkbox" 
-                id ="notizStatus"
-                name="notizStatus"
-                {{#if bStatus}} checked {{/if}}
-                data-notiz-id="{{id}}">
-        <label for="notizStatus">Finished</label>
+                id ="notizStatus_{{id}}"
+                data-notiz-id="{{id}}"
+                {{#if bStatus}} checked {{/if}}>
+        <label for="notizStatus_{{id}}"
+               data-notiz-id="{{id}}">Finished</label>
       </div>
       <div class="page-index notiz-container-text">
         <textarea class="textarea textbox-style-1"

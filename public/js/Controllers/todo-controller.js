@@ -147,7 +147,7 @@ class TodoController {
             || oNode.dataset.prioWert > 5) {
                 errMessages.push({message: 'Feld Wichtigkeit muss Wert von 1 bis 5 haben'});
         } else {
-            beschreibung = oNode.value;
+            beschreibung = oNode.dataset.prioWert;
         }
 
         /** Feld: Erledigen bis */

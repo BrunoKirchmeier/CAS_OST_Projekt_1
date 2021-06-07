@@ -100,10 +100,10 @@ class TodoController {
             const oNodeButtonCancel = document.querySelector('.cancel');
             const oNodeButtonSpeichern = document.querySelector('.speichern');
             /* Eventlistener Registrieren */
-            const oNodeButtonPrio = document.querySelectorAll('.prio-container-status');
-
-
-
+            const oNodeButtonPrio = document.querySelectorAll('.prio-wert-setzen');
+            oNodeButtonPrio.forEach((oNode) => {
+                oNode.addEventListener('click', (e2) => this.setPrioWert(e2));
+            });
             oNodeButtonCancel.addEventListener('click', (e2) => this.renderPage(e2, 'index'));
             oNodeButtonSpeichern.addEventListener('click', (e2) => this.saveDatensatz(e2));
         }
@@ -114,7 +114,7 @@ class TodoController {
         const errMessages = [];
         let titel = '';
         let beschreibung = '';
-        let prio = 5;
+        let prio = 1;
         let datumZuErledigenBis = '';
 
         /** Eingabe Validierungen Client */
@@ -134,6 +134,18 @@ class TodoController {
             || typeof (oNode.value) !== 'string'
             || oNode.value === '') {
                 errMessages.push({message: 'Feld Beschreibung darf nicht leer sein'});
+        } else {
+            beschreibung = oNode.value;
+        }
+
+        /** Feld: Prio */
+        oNode = document.querySelector('.prio-container-status');
+        if (oNode === null
+            || oNode.dataset.prioWert !== undefined
+            || typeof (oNode.dataset.prioWert) !== 'string'
+            || oNode.dataset.prioWert < 1
+            || oNode.dataset.prioWert > 5) {
+                errMessages.push({message: 'Feld Wichtigkeit muss Wert von 1 bis 5 haben'});
         } else {
             beschreibung = oNode.value;
         }
@@ -226,6 +238,22 @@ class TodoController {
         const oNotiz = datensatz.bStatus === true ? {bStatus: false} : {bStatus: true};
         const res = this.oNotizService.saveDatensatz(oNotiz, e.target.dataset.notizId);
         console.log(e.target);
+    }
+
+    /** Wert Priorität setzen */
+    setPrioWert(e) {
+        const oNodeContainerPrio = document.querySelector('.prio-container-status');
+        oNodeContainerPrio.dataset.prioWert = e.target.dataset.prioWert;
+        const oNodePrioElemente = document.querySelectorAll('.prio-container-status img');
+        oNodePrioElemente.forEach((oNode) => {
+            if (oNode.dataset.prioWert < e.target.dataset.prioWert) {
+                oNode.classList.add('blitz-inaktiv');
+                oNode.classList.remove('blitz-aktiv');
+            } else {
+                oNode.classList.add('blitz-aktiv');
+                oNode.classList.remove('blitz-inaktiv');
+            }
+        });
     }
 
 }

@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Notizen App</title>
+    <!-- Handelbar-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js" 
           integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" 
           crossorigin="anonymous" 
           defer></script>
+           <!-- 
   <script src="js/handlebars-util.js" 
-          defer></script>
-  <!-- Klassen Importe-->
+          defer></script> -->
+  <!-- Controller Klassen-->
   <script src="js/Controllers/todo-controller.js" 
           type="module"
           defer></script>
+  <!-- CSS Files-->
   <link rel="stylesheet" 
         href="styles/index.css">
   <link rel="stylesheet" 
@@ -79,29 +82,30 @@
       <div class="page-index notiz-container-titel">
         <p>{{sTitel}}</p>
       </div>
-      <div class="page-index notiz-container-prio">
+      <div class="page-index notiz-container-prio" 
+           data-prio-wert="{{iPrio}}">
         <div>
-          <img  class="blitz-inaktiv"
+          <img  class="{{#xIf iPrio '>' 0 }} blitz-aktiv {{else}} blitz-inaktiv {{/xIf}}"
                 src="./img/Blitz.jpg" 
                 alt="Blitz">
         </div>
         <div>
-          <img  class="blitz-inaktiv"
+          <img  class="{{#xIf iPrio '>' 1 }} blitz-aktiv {{else}} blitz-inaktiv {{/xIf}}"
                 src="./img/Blitz.jpg" 
                 alt="Blitz">
         </div>
         <div>
-          <img  class="blitz-inaktiv"
+          <img  class="{{#xIf iPrio '>' 2 }} blitz-aktiv {{else}} blitz-inaktiv {{/xIf}}"
                 src="./img/Blitz.jpg" 
                 alt="Blitz">
         </div>
         <div>
-          <img  class="blitz-inaktiv"
+          <img  class="{{#xIf iPrio '>' 3 }} blitz-aktiv {{else}} blitz-inaktiv {{/xIf}}"
                 src="./img/Blitz.jpg" 
                 alt="Blitz">
         </div>
         <div>
-          <img  class="blitz-inaktiv"
+          <img  class="{{#xIf iPrio '>' 4 }} blitz-aktiv {{else}} blitz-inaktiv {{/xIf}}"
                 src="./img/Blitz.jpg" 
                 alt="Blitz">
         </div>
@@ -160,36 +164,37 @@
             for="prio">Wichtigkeit</label>
     <div  class="page-detail prio-container-status" 
           id="prio"
-          data-notiz-id="{{id}}">
+          data-notiz-id="{{notiz.id}}" 
+          data-prio-wert="{{notiz.iPrio}}">
       <div>
-        <img  class="prio-wert-setzen blitz-inaktiv" 
+        <img  class="prio-wert-setzen {{#xIf notiz.iPrio '>' 0 }} blitz-aktiv {{else}} blitz-inaktiv {{/xIf}}" 
               src="./img/Blitz.jpg" 
               alt="Blitz"
-              data-prio-wert=5>
+              data-prio-wert=1>
       </div>
       <div>
-        <img  class="prio-wert-setzen blitz blitz-inaktiv" 
-              src="./img/Blitz.jpg" 
-              alt="Blitz"
-              data-prio-wert=4>
-      </div>
-      <div>
-        <img  class="prio-wert-setzen blitz blitz-inaktiv" 
-              src="./img/Blitz.jpg" 
-              alt="Blitz"
-              data-prio-wert=3>
-      </div>
-      <div>
-        <img  class="prio-wert-setzen blitz blitz-inaktiv" 
+        <img  class="prio-wert-setzen {{#xIf notiz.iPrio '>' 1 }} blitz-aktiv {{else}} blitz-inaktiv {{/xIf}}" 
               src="./img/Blitz.jpg" 
               alt="Blitz"
               data-prio-wert=2>
       </div>
       <div>
-        <img  class="prio-wert-setzen blitz blitz-inaktiv" 
+        <img  class="prio-wert-setzen {{#xIf notiz.iPrio '>' 2 }} blitz-aktiv {{else}} blitz-inaktiv {{/xIf}}"  
               src="./img/Blitz.jpg" 
               alt="Blitz"
-              data-prio-wert=1>
+              data-prio-wert=3>
+      </div>
+      <div>
+        <img  class="prio-wert-setzen {{#xIf notiz.iPrio '>' 3 }} blitz-aktiv {{else}} blitz-inaktiv {{/xIf}}" 
+              src="./img/Blitz.jpg" 
+              alt="Blitz"
+              data-prio-wert=4>
+      </div>
+      <div>
+        <img  class="prio-wert-setzen {{#xIf notiz.iPrio '>' 4 }} blitz-aktiv {{else}} blitz-inaktiv {{/xIf}}" 
+              src="./img/Blitz.jpg" 
+              alt="Blitz"
+              data-prio-wert=5>
       </div>
     </div>
     <label class="page-detail datum-label" 

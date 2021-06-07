@@ -114,7 +114,7 @@ class TodoController {
         const errMessages = [];
         let titel = '';
         let beschreibung = '';
-        let prio = 1;
+        let prio = 5;
         let datumZuErledigenBis = '';
 
         /** Eingabe Validierungen Client */
@@ -141,13 +141,14 @@ class TodoController {
         /** Feld: Prio */
         oNode = document.querySelector('.prio-container-status');
         if (oNode === null
-            || oNode.dataset.prioWert !== undefined
+            || oNode.dataset.prioWert === undefined
             || typeof (oNode.dataset.prioWert) !== 'string'
             || oNode.dataset.prioWert < 1
             || oNode.dataset.prioWert > 5) {
+
                 errMessages.push({message: 'Feld Wichtigkeit muss Wert von 1 bis 5 haben'});
         } else {
-            beschreibung = oNode.dataset.prioWert;
+            prio = oNode.dataset.prioWert;
         }
 
         /** Feld: Erledigen bis */
@@ -246,7 +247,7 @@ class TodoController {
         oNodeContainerPrio.dataset.prioWert = e.target.dataset.prioWert;
         const oNodePrioElemente = document.querySelectorAll('.prio-container-status img');
         oNodePrioElemente.forEach((oNode) => {
-            if (oNode.dataset.prioWert < e.target.dataset.prioWert) {
+            if (oNode.dataset.prioWert > e.target.dataset.prioWert) {
                 oNode.classList.add('blitz-inaktiv');
                 oNode.classList.remove('blitz-aktiv');
             } else {
@@ -258,6 +259,34 @@ class TodoController {
 
 }
 
-/* Instanzierung Controller */
-const oTodo = new TodoController();
-oTodo.renderPage(undefined, 'index');
+/* DOM Laden */
+window.addEventListener('DOMContentLoaded', function() {
+
+    /* Handelbar Template */
+    Handlebars.registerHelper('xIf', function(a, operator, b, opts) {
+        var bool = false;
+        switch(operator) {
+           case '==':
+               bool = a == b;
+               break;
+           case '>':
+               bool = a > b;
+               break;
+           case '<':
+               bool = a < b;
+               break;
+           default:
+               throw "Unknown operator " + operator;
+        }
+
+        if (bool) {
+            return opts.fn(this);
+        } else {
+            return opts.inverse(this);
+        }
+    });
+
+    /* Instanzierung Controller */
+    const oTodo = new TodoController();
+    oTodo.renderPage(undefined, 'index');
+});

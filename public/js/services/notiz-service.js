@@ -64,7 +64,7 @@ export class NotizService {
     }
 
     #comparePrio(_s1, _s2) {
-        return _s1.iPrio - _s2.iPrio;
+        return _s2.iPrio - _s1.iPrio;
     }
 
     /** Setter */

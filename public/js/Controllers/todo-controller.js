@@ -205,7 +205,7 @@ class TodoController {
             || Number.isNaN(Date.parse(oNode.value)) === true) {
                 errMessages.push({message: 'Feld Erledigt bis ist kein gültiges Datumsfeld'});
         } else {
-            datumZuErledigenBis = oNode.value;
+            datumZuErledigenBis = new Date(oNode.value);
         }
 
         /** Validierungsfehler erkannt. Datensatz wird nicht geschrieben */

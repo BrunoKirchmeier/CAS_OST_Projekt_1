@@ -1,3 +1,4 @@
-{"sTitel":"Test 2","sBeschreibung":"Bezeichnung","iPrio":"2","oDatumZuErledigenBis":"2021-12-17","oDatumAbgeschlossen":null,"oDatumErstellt":{"$$date":1623578805500},"bStatus":false,"_id":"1DlK2KtEPRqsTrwW"}
-{"sTitel":"12","sBeschreibung":"12","iPrio":"3","oDatumZuErledigenBis":"2021-06-17","oDatumAbgeschlossen":null,"oDatumErstellt":{"$$date":1623598150857},"bStatus":false,"_id":"FVlMmZEkRuYCaJCn"}
-{"sTitel":"12","sBeschreibung":"121212","iPrio":"2","oDatumZuErledigenBis":"2021-06-25","oDatumAbgeschlossen":null,"oDatumErstellt":{"$$date":1623598790615},"bStatus":false,"_id":"UOAVSGLGBvGmYQXz"}
+{"sTitel":"Test 3","sBeschreibung":"1212","iPrio":"4","oDatumZuErledigenBis":"2021-07-15T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":"2021-06-13T21:04:42.338Z","bStatus":false,"_id":"6IDhxLTrsZgBNiFH"}
+{"sTitel":"Test 2","sBeschreibung":"12","iPrio":"2","oDatumZuErledigenBis":"2021-08-12T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":"2021-06-13T21:03:49.104Z","bStatus":false,"_id":"I4glboGuNL4L2L4D"}
+{"sTitel":"Titel 1","sBeschreibung":"Bezeichnung 1","iPrio":"3","oDatumZuErledigenBis":"2021-06-25T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":"2021-06-13T21:00:50.637Z","bStatus":false,"_id":"Ow3ABYznfDYUgmbJ"}
+{"sTitel":"Test ","sBeschreibung":"Erledigt","iPrio":"1","oDatumZuErledigenBis":"2021-06-11T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":"2021-06-13T21:35:17.393Z","bStatus":true,"_id":"jqDzwvkpRdvhLP0v"}

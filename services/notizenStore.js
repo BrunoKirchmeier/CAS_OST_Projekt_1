@@ -13,16 +13,33 @@ class notizenDatastore {
     }
 
     async getNotizen(_id = undefined,
-                     _sortierung = 'oDatumZuErledigenBis',
-                     _filterOffene = true) {
+                     _sortierung = 'erledigt',
+                     _filter = 'offen') {
+
+        /** Sortier Variante - Datenbankfeld bestimmen */ 
+        if (_sortierung === 'erledigt') {
+            _sortierung = 'oDatumZuErledigenBis';
+        } else if (_sortierung === 'erstellt') {
+            _sortierung = 'oDatumErstellt';
+        } else if (_sortierung === 'prio') {
+            _sortierung = 'iPrio';
+        }
+
+        /** Sortier Richtung */ 
+        const sortierRichtung = _sortierung === 'oDatumZuErledigenBis'
+                                || _sortierung === 'oDatumErstellt'
+                              ? -1
+                              : 1;
+        /** Filter */
+        const filter = _filter === 'offen'
+                     ? { bStatus: { $ne: true }}
+                     : {};
+
+        /** Alle Datensätze */ 
         if (_id === undefined) {
+            this.#daten = await this.#db.find(filter).sort({ _sortierung: sortierRichtung });
 
-            const sortierRichtung = _sortierung === 'oDatumZuErledigenBis'
-                                    || _sortierung === 'oDatumErstellt'
-                                  ? 1
-                                  : -1;
-
-            this.#daten = await this.#db.find({}).sort({ _sortierung: sortierRichtung });
+        /** Datensatz nach ID */
         } else {
             this.#daten = await this.#db.findOne({ _id: _id });
         }

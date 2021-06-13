@@ -11,8 +11,9 @@ export class notizenController {
 
      /** Alle Datensätze laden */
     async getDatensaetze(req, res) {
-        console.log(req.query);
-        res.json(await oNotizenStore.getNotizen());
+        res.json(await oNotizenStore.getNotizen(undefined,
+                                                req.query.sortingTyp,
+                                                req.query.filterTyp));
     }
 
     /** Datensatz nach Id laden */
@@ -25,9 +26,9 @@ export class notizenController {
         const oNotiz = {sTitel: req.body.sTitel || '',
                         sBeschreibung: req.body.sBeschreibung || '',
                         iPrio: req.body.iPrio || 5,
-                        oDatumZuErledigenBis: req.body.oDatumZuErledigenBis || new Date(),
+                        oDatumZuErledigenBis: new Date(req.body.oDatumZuErledigenBis).toISOString() || null,
                         oDatumAbgeschlossen: null,
-                        oDatumErstellt: new Date(),
+                        oDatumErstellt: new Date().toISOString(),
                         bStatus: false};
 
         res.json(await oNotizenStore.insertDatensatz(oNotiz));
@@ -40,10 +41,22 @@ export class notizenController {
 
     /** Datensatz in DB aktualisieren */
     async updateDatensatz(req, res) {
+
+        if(req.body.hasOwnProperty('oDatumErstellt') === true) {
+            req.body.oDatumErstellt = new Date(req.body.oDatumErstellt).toISOString();
+        }
+
+        if(req.body.hasOwnProperty('oDatumZuErledigenBis') === true) {
+            req.body.oDatumZuErledigenBis = new Date(req.body.oDatumZuErledigenBis).toISOString();
+        }
+
+        if(req.body.hasOwnProperty('oDatumAbgeschlossen') === true) {
+            req.body.oDatumAbgeschlossen = new Date(req.body.oDatumAbgeschlossen).toISOString();
+        }
+
         res.json(await oNotizenStore.updateDatensatz(req.params.id,
                                                      req.body));
     }
-
 
 }
 

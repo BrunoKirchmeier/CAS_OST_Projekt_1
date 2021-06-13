@@ -8,10 +8,6 @@
           integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" 
           crossorigin="anonymous" 
           defer></script>
-           <!-- 
-  <script src="js/handlebars-util.js" 
-          defer></script> -->
-  <!-- Controller Klassen-->
   <script src="js/Controllers/todo-controller.js" 
           type="module"
           defer></script>
@@ -19,7 +15,7 @@
   <link rel="stylesheet" 
         href="styles/index.css">
   <link rel="stylesheet" 
-        href="styles/notiz.css">
+        href="styles/detail.css">
 
 </head>
 <!-- Body-->
@@ -69,9 +65,7 @@
               data-filter-abgeschlossen="aus">Erledigte anzeigen</button>
     </div>
   </script>
-
   <!-- Handelbar Templates: Liste aller Notizen (Content)-->
-  <!-- class="{{#xIf prio '>' 0 }} blitz-aktiv {{else}} blitz-inaktiv {{/xIf}}" -->
   <script class="page-index notiz-liste-content-template" 
           type="text/x-handlebars-template">
     {{#each notiz}}
@@ -113,11 +107,11 @@
       <div class="page-index notiz-container-status">
         <input class="notiz-status" 
                 type="checkbox" 
-                id ="notizStatus_{{id}}"
-                data-notiz-id="{{id}}"
+                id ="notizStatus_{{_id}}"
+                data-notiz-id="{{_id}}"
                 {{#if bStatus}} checked {{/if}}>
-        <label for="notizStatus_{{id}}"
-               data-notiz-id="{{id}}">Finished</label>
+        <label for="notizStatus_{{_id}}"
+               data-notiz-id="{{_id}}">Finished</label>
       </div>
       <div class="page-index notiz-container-text">
         <textarea class="textarea textbox-style-1"
@@ -134,11 +128,11 @@
       </div>
       <div class="page-index notiz-container-buttons">
         <button class="button-notiz-edit button-style-2"
-                data-notiz-id="{{id}}"
+                data-notiz-id="{{_id}}"
                 data-jump-to-page="detail">Anpassen
         </button>
         <button class="button-notiz-delete button-style-2"
-                data-notiz-id="{{id}}">Löschen
+                data-notiz-id="{{_id}}">Löschen
         </button>
       </div>
     </div>
@@ -164,7 +158,7 @@
             for="prio">Wichtigkeit</label>
     <div  class="page-detail prio-container-status" 
           id="prio"
-          data-notiz-id="{{notiz.id}}" 
+          data-notiz-id="{{notiz._id}}" 
           data-prio-wert="{{notiz.iPrio}}">
       <div>
         <img  class="prio-wert-setzen {{#xIf notiz.iPrio '>' 0 }} blitz-aktiv {{else}} blitz-inaktiv {{/xIf}}" 
@@ -209,7 +203,7 @@
     <p class="page-detail datum-erstellt">{{notiz.oDatumErstellt}}</p>
     <button class="page-detail speichern button-style-1"
             data-jump-to-page="index"
-            data-notiz-id="{{notiz.id}}">Speichern</button>
+            data-notiz-id="{{notiz._id}}">Speichern</button>
     <div class="page-detail leer5"></div>
     <button class="page-detail cancel button-style-1"
             data-jump-to-page="index">Cancel</button>

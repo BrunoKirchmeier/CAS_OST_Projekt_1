@@ -1,0 +1,3 @@
+{"sTitel":"Test 2","sBeschreibung":"Bezeichnung","iPrio":"2","oDatumZuErledigenBis":"2021-12-17","oDatumAbgeschlossen":null,"oDatumErstellt":{"$$date":1623578805500},"bStatus":false,"_id":"1DlK2KtEPRqsTrwW"}
+{"sTitel":"12","sBeschreibung":"12","iPrio":"3","oDatumZuErledigenBis":"2021-06-17","oDatumAbgeschlossen":null,"oDatumErstellt":{"$$date":1623598150857},"bStatus":false,"_id":"FVlMmZEkRuYCaJCn"}
+{"sTitel":"12","sBeschreibung":"121212","iPrio":"2","oDatumZuErledigenBis":"2021-06-25","oDatumAbgeschlossen":null,"oDatumErstellt":{"$$date":1623598790615},"bStatus":false,"_id":"UOAVSGLGBvGmYQXz"}

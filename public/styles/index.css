@@ -74,8 +74,6 @@
     font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
-/* PAGE: Index */
-
 /* PAGE: Index Grid Header / Content / Footer */
 .page-index.body-container {
     display: grid;
@@ -100,8 +98,7 @@
     "neue-notiz leer leer style "
     "sortieren sortieren sortieren status";
 
-    margin: 0 0 30px 0;
-    padding: 10px;
+    padding: 30px;
     border-bottom: 2px solid; 
     background-color: var(--header-background-color);
     color: var(--header-color);
@@ -109,7 +106,7 @@
 
 .page-index.header-row-1-col-1 {
     grid-area: neue-notiz;
-    margin: 0 10% 10px 0;
+    /* margin: 0 10% 10px 0; */
 }
 
 .page-index.header-row-1-col-2 {
@@ -120,6 +117,7 @@
 .page-index.header-row-1-col-3 {
     grid-area: style;
     margin: 0 0 10px 0;
+    justify-self: end;
 }
 
 .page-index.header-row-2-col-1 {
@@ -130,11 +128,12 @@
 .page-index.header-row-2-col-2 {
     grid-area: status; 
     margin: 0 0 10px 0;
+    justify-self: end;
 }
 
 .page-index.content {
     grid-area: main; 
-    padding: 10px;
+    padding: 30px;
     background-color: var(--main-background-color);
     color: var(--main-color);
 }
@@ -193,12 +192,12 @@
 
 .page-index.notiz-container-buttons {
     grid-area: buttons; 
-    width: 90%;
     justify-self: end;
 }
 
 .page-index.footer { 
-    grid-area: footer; 
+    grid-area: footer;
+    padding: 30px;
     background-color: var(--footer-background-color);
     color: var(--footer-color);
 }
@@ -217,10 +216,6 @@
 }
 
 .button-style-1 {
-    /*
-    width: 100%;
-    height: 100%;
-    */
     border: 2px solid;
     border-radius: 3px;
     font-weight: 700;
@@ -236,7 +231,6 @@
 
 .button-style-2 {
     width: 80%;
-    /* height: 40%; */
     border: 2px solid;
     border-radius: 3px;
     font-weight: 700;
@@ -251,10 +245,6 @@
 }
 
 .button-style-3 {
-    /*
-    width: 100%;
-    height: 100%;
-    */
     border: 2px solid;
     border-radius: 3px;
     font-weight: 700;
@@ -267,7 +257,6 @@
     background-color: var(--button-3-hover-background-color);
     color: var(--button-3-hover-color);
 }
-
 
 .radio-style-1 {
     display: flex; 

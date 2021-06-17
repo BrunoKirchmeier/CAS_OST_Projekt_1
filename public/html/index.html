@@ -71,7 +71,7 @@
     {{#each notiz}}
     <div class="page-index notiz-container">
       <div class="page-index notiz-container-datum">
-        <p>{{oDatumZuErledigenBis}}</p>
+        <p>{{formatDate oDatumZuErledigenBis}}</p>
       </div>
       <div class="page-index notiz-container-titel">
         <p>{{sTitel}}</p>
@@ -197,10 +197,10 @@
       <input class="datum-input textbox-style-1" 
               type="date" 
               id="datum"
-              value="{{notiz.oDatumZuErledigenBis}}">
+              value="{{formatDate notiz.oDatumZuErledigenBis 'mysql'}}">
     </div>
     <p class="page-detail datum-erstellt-label">Datum Erstellt:</p>
-    <p class="page-detail datum-erstellt">{{notiz.oDatumErstellt}}</p>
+    <p class="page-detail datum-erstellt">{{formatDate notiz.oDatumErstellt}}</p>
     <button class="page-detail speichern button-style-1"
             data-jump-to-page="index"
             data-notiz-id="{{notiz._id}}">Speichern</button>

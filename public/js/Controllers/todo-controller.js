@@ -348,7 +348,7 @@ class TodoController {
 /* DOM Laden */
 window.addEventListener('DOMContentLoaded', function() {
 
-    /* Handelbar Template */
+    /* Handelbar Helper: Vergleichen */
     Handlebars.registerHelper('xIf', function(a, operator, b, opts) {
         var bool = false;
         switch(operator) {
@@ -370,6 +370,26 @@ window.addEventListener('DOMContentLoaded', function() {
         } else {
             return opts.inverse(this);
         }
+    });
+
+    /* Handelbar Helper: Datumsformat Konvertieren */
+    Handlebars.registerHelper('formatDate', function (sDateIn, sFormat) {
+        const options_view = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+        const options_mysql = { year: 'numeric', month: '2-digit', day: '2-digit'};
+
+        let sDateOut = null;
+
+        switch(sFormat) {
+            case 'mysql':
+                sDateOut = new Date(sDateIn).toLocaleString('de-DE', options_mysql)
+                                               .replaceAll('.', '-');
+                sDateOut = sDateOut.split('-').reverse().join('-');
+               break;
+            default:
+                sDateOut = new Date(sDateIn).toLocaleString('de-DE', options_view);
+        }
+
+        return sDateOut;
     });
 
     /* Instanzierung Controller */

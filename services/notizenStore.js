@@ -28,8 +28,8 @@ class notizenDatastore {
         /** Sortier Richtung */ 
         const sortierRichtung = _sortierung === 'oDatumZuErledigenBis'
                                 || _sortierung === 'oDatumErstellt'
-                              ? -1
-                              : 1;
+                              ? 1
+                              : -1;
         /** Filter */
         const filter = _filter === 'offen'
                      ? { bStatus: { $ne: true }}
@@ -37,8 +37,10 @@ class notizenDatastore {
 
         /** Alle Datensätze */ 
         if (_id === undefined) {
-            this.#daten = await this.#db.find(filter).sort({ _sortierung: sortierRichtung });
-
+            let oArgument = {};
+            oArgument[_sortierung] = sortierRichtung;
+            console.log(oArgument);
+            this.#daten = await this.#db.find(filter).sort(oArgument);
         /** Datensatz nach ID */
         } else {
             this.#daten = await this.#db.findOne({ _id: _id });

@@ -25,7 +25,7 @@ export class notizenController {
     async insertDatensatz(req, res) {
         const oNotiz = {sTitel: req.body.sTitel || '',
                         sBeschreibung: req.body.sBeschreibung || '',
-                        iPrio: req.body.iPrio || 5,
+                        iPrio: req.body.iPrio || 1,
                         oDatumZuErledigenBis: new Date(req.body.oDatumZuErledigenBis).toISOString() || null,
                         oDatumAbgeschlossen: null,
                         oDatumErstellt: new Date().toISOString(),

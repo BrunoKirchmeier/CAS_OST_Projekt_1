@@ -1,4 +1,4 @@
-import {oApp} from './app.js';
+import oApp from './app.js';
 
 /* Node Server starten */
 const hostname = '127.0.0.1';

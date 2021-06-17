@@ -1,6 +1,5 @@
 {"sTitel":"Test 3","sBeschreibung":"1212","iPrio":"4","oDatumZuErledigenBis":"2021-06-03T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":"2021-06-13T21:04:42.338Z","bStatus":false,"_id":"6IDhxLTrsZgBNiFH"}
-{"sTitel":"Test 10","sBeschreibung":"Bez ","iPrio":"5","oDatumZuErledigenBis":"2021-06-10T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":1623856077187,"bStatus":false,"_id":"BiX1AEgT36SUgAx6"}
 {"sTitel":"Test 2","sBeschreibung":"12","iPrio":"2","oDatumZuErledigenBis":"2021-06-02T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":"2021-06-13T21:03:49.104Z","bStatus":false,"_id":"I4glboGuNL4L2L4D"}
 {"sTitel":"Titel 1","sBeschreibung":"Bezeichnung 1","iPrio":"3","oDatumZuErledigenBis":"2021-06-01T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":"2021-06-13T21:00:50.637Z","bStatus":false,"_id":"Ow3ABYznfDYUgmbJ"}
 {"sTitel":"Test ","sBeschreibung":"Erledigt","iPrio":"1","oDatumZuErledigenBis":"2021-06-11T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":"2021-06-13T21:35:17.393Z","bStatus":true,"_id":"jqDzwvkpRdvhLP0v"}
-{"sTitel":"Test 50","sBeschreibung":"Tet erstellen","iPrio":"2","oDatumZuErledigenBis":"2021-06-17T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":"2021-06-17T19:30:32.259Z","bStatus":false,"_id":"vylXp53E8ush8SJU"}
+{"sTitel":"Test 50","sBeschreibung":"Tet erstellen","iPrio":"2","oDatumZuErledigenBis":"2021-06-01T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":"2021-06-17T19:30:32.259Z","bStatus":false,"_id":"vylXp53E8ush8SJU"}

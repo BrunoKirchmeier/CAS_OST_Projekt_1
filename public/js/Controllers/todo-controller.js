@@ -3,18 +3,12 @@ import NotizService from '../services/notiz-service.js';
 
 /* Controller Todo */
 class TodoController {
-
-    /** Private Eigenschaften */
-    #sortierung;
-    #filter;
-    #response;
-
     /** Konstruktor */
     constructor() {
         /** Model instanzieren */
         this.oNotizService = new NotizService();
-        this.#sortierung = 'erledigt';
-        this.#filter = 'offen';
+        this.sortierung = 'erledigt';
+        this.filter = 'offen';
     }
 
     /** Public Methoden */
@@ -28,19 +22,18 @@ class TodoController {
         if (Page === 'index') {
             /* Response API abwarten */
             this.oNotizService
-            .getDatensaetze(this.#sortierung, 
-                            this.#filter)
+            .getDatensaetze(this.sortierung,
+                            this.filter)
             .then((arrNotizen) => {
                 this.renderPageIndex(oNodeHeader,
                                      oNodeContent,
                                      oNodeFooter,
                                      arrNotizen);
             })
-            .catch((error) => {
+            .catch(() => {
                 this.renderPageIndex(oNodeHeader,
                                      oNodeContent,
                                      oNodeFooter);
-                alert('Error:', error);
             });
 
         /* PAGE: Detail */
@@ -54,11 +47,10 @@ class TodoController {
                                       oNodeFooter,
                                       arrNotizen);
             })
-            .catch((error) => {
+            .catch(() => {
                 this.renderPageIndex(oNodeHeader,
                                      oNodeContent,
                                      oNodeFooter);
-                alert('Error:', error);
             });
         }
     }
@@ -68,28 +60,31 @@ class TodoController {
                     oNodeContent,
                     oNodeFooter,
                     arrNotizen = []) {
-
+        /* Parameter speichern */
+        this.oNodeHeader = oNodeHeader;
+        this.oNodeContent = oNodeContent;
+        this.oNodeFooter = oNodeFooter;
         /* Aktuelle View löschen */
-        oNodeHeader.textContent = '';
-        oNodeContent.textContent = '';
+        this.oNodeHeader.textContent = '';
+        this.oNodeContent.textContent = '';
         /* View Template laden und in DOM einsetzen */
         const headerTemplateCompiled = Handlebars.compile(document.querySelector('.page-index.notiz-liste-header-template').innerHTML);
         const contentTemplateCompiled = Handlebars.compile(document.querySelector('.page-index.notiz-liste-content-template').innerHTML);
-        oNodeHeader.innerHTML = headerTemplateCompiled();
-        oNodeContent.innerHTML = contentTemplateCompiled(
+        this.oNodeHeader.innerHTML = headerTemplateCompiled();
+        this.oNodeContent.innerHTML = contentTemplateCompiled(
             {notiz: arrNotizen},
             {allowProtoPropertiesByDefault: true},
         );
         /* Radio Sortieren auf Checked setzen */
-        const oNode = document.querySelector('input[name="sortieren"][value="' + this.#sortierung + '"');
+        const oNode = document.querySelector('input[name="sortieren"][value="' + this.sortierung + '"');
         oNode.checked = true;
         /* Klasse für Page Bezeichung ändern */
-        oNodeHeader.classList.remove('page-detail');
-        oNodeHeader.classList.add('page-index');
-        oNodeContent.classList.remove('page-detail');
-        oNodeContent.classList.add('page-index');
-        oNodeFooter.classList.remove('page-detail');
-        oNodeFooter.classList.add('page-index');
+        this.oNodeHeader.classList.remove('page-detail');
+        this.oNodeHeader.classList.add('page-index');
+        this.oNodeContent.classList.remove('page-detail');
+        this.oNodeContent.classList.add('page-index');
+        this.oNodeFooter.classList.remove('page-detail');
+        this.oNodeFooter.classList.add('page-index');
         /* Dom Selektion */
         const oNodeButtonNeueNotiz = document.querySelector('.button-notiz-neu');
         const oNodeButtonChangeStyle = document.querySelector('.button-change-style');
@@ -99,7 +94,7 @@ class TodoController {
         const oNodeButtonDeleteNotiz = document.querySelectorAll('.button-notiz-delete');
         const oNodeButtonFinishedNotiz = document.querySelectorAll('.notiz-status');
         /* Attributte und Klasse für Buttons ändern */
-        if(this.#filter === '') {
+        if (this.filter === '') {
             oNodeButtonFilterAbgeschlossen.dataset.filterAbgeschlossen = 'ein';
             oNodeButtonFilterAbgeschlossen.classList.add('button-ist-aktiv');
         } else {
@@ -111,14 +106,14 @@ class TodoController {
         oNodeButtonChangeStyle.addEventListener('change', (e2) => this.changeStyle(e2));
         oNodeButtonChangeSort.addEventListener('change', (e2) => this.changeSort(e2));
         oNodeButtonFilterAbgeschlossen.addEventListener('click', (e2) => this.changeFilter(e2));
-        oNodeButtonFinishedNotiz.forEach((oNode) => {
-            oNode.addEventListener('click', (e2) => this.setAbgeschlossen(e2));
+        oNodeButtonFinishedNotiz.forEach((oNodeButton) => {
+            oNodeButton.addEventListener('click', (e2) => this.setAbgeschlossen(e2));
         });
-        oNodeButtonEditNotiz.forEach((oNode) => {
-            oNode.addEventListener('click', (e2) => this.refreshPage(e2, 'detail'));
+        oNodeButtonEditNotiz.forEach((oNodeButton) => {
+            oNodeButton.addEventListener('click', (e2) => this.refreshPage(e2, 'detail'));
         });
-        oNodeButtonDeleteNotiz.forEach((oNode) => {
-            oNode.addEventListener('click', (e2) => this.deleteDatensatz(e2));
+        oNodeButtonDeleteNotiz.forEach((oNodeButton) => {
+            oNodeButton.addEventListener('click', (e2) => this.deleteDatensatz(e2));
         });
     }
 
@@ -127,30 +122,33 @@ class TodoController {
                      oNodeContent,
                      oNodeFooter,
                      arrNotizen = []) {
-
+        /* Parameter speichern */
+        this.oNodeHeader = oNodeHeader;
+        this.oNodeContent = oNodeContent;
+        this.oNodeFooter = oNodeFooter;
         /* Aktuelle View löschen */
-        oNodeHeader.textContent = '';
-        oNodeContent.textContent = '';
+        this.oNodeHeader.textContent = '';
+        this.oNodeContent.textContent = '';
         /* View Template laden und in DOM einsetzen */
         const contentTemplateCompiled = Handlebars.compile(document.querySelector('.page-detail.notiz-detail-template').innerHTML);
-        oNodeContent.innerHTML = contentTemplateCompiled(
+        this.oNodeContent.innerHTML = contentTemplateCompiled(
             {notiz: arrNotizen},
             {allowProtoPropertiesByDefault: true},
         );
         /* Klasse für Page Bezeichung ändern */
-        oNodeHeader.classList.remove('page-index');
-        oNodeHeader.classList.add('page-detail');
-        oNodeContent.classList.remove('page-index');
-        oNodeContent.classList.add('page-detail');
-        oNodeFooter.classList.remove('page-index');
-        oNodeFooter.classList.add('page-detail');
+        this.oNodeHeader.classList.remove('page-index');
+        this.oNodeHeader.classList.add('page-detail');
+        this.oNodeContent.classList.remove('page-index');
+        this.oNodeContent.classList.add('page-detail');
+        this.oNodeFooter.classList.remove('page-index');
+        this.oNodeFooter.classList.add('page-detail');
         /* Dom Selektion */
         const oNodeButtonCancel = document.querySelector('.cancel');
         const oNodeButtonSpeichern = document.querySelector('.speichern');
         /* Eventlistener Registrieren */
         const oNodeButtonPrio = document.querySelectorAll('.prio-wert-setzen');
-        oNodeButtonPrio.forEach((oNode) => {
-            oNode.addEventListener('click', (e2) => this.setPrioWert(e2));
+        oNodeButtonPrio.forEach((oNodeButton) => {
+            oNodeButton.addEventListener('click', (e2) => this.setPrioWert(e2));
         });
         oNodeButtonCancel.addEventListener('click', (e2) => this.refreshPage(e2, 'index'));
         oNodeButtonSpeichern.addEventListener('click', (e2) => this.saveDatensatz(e2));
@@ -192,7 +190,6 @@ class TodoController {
             || typeof (oNode.dataset.prioWert) !== 'string'
             || oNode.dataset.prioWert < 1
             || oNode.dataset.prioWert > 5) {
-
                 errMessages.push({message: 'Feld Wichtigkeit muss Wert von 1 bis 5 haben'});
         } else {
             prio = oNode.dataset.prioWert;
@@ -220,7 +217,6 @@ class TodoController {
 
         /** Schreiben in Datenbank */
         } else {
-            let res = false;
             const oNotiz = {sTitel: titel,
                             sBeschreibung: beschreibung,
                             iPrio: prio,
@@ -231,32 +227,25 @@ class TodoController {
                 && e.target.dataset.notizId !== undefined) {
                 /* Update in Datenbank */
                 this.oNotizService.saveDatensatz(oNotiz, e.target.dataset.notizId)
-                .then((result) => {
+                .then(() => {
                     this.refreshPage(undefined,
                                      'index');
                 })
-                .catch((error) => {
+                .catch(() => {
                     this.refreshPage(undefined,
                                      'index');
-                    alert('Error:', error);
                 });
-
             } else {
                 /* Neu in Datenbank */
                 this.oNotizService.saveDatensatz(oNotiz)
-                .then((result) => {
+                .then(() => {
                     this.refreshPage(undefined,
                                      'index');
                 })
-                .catch((error) => {
+                .catch(() => {
                     this.refreshPage(undefined,
                                      'index');
-                    alert('Error:', error);
                 });
-            }
-            /* View Template index neu laden */
-            if (res === true) {
-                this.refreshPage(undefined, 'index');
             }
         }
     }
@@ -265,14 +254,13 @@ class TodoController {
     deleteDatensatz(e) {
         /* Response API abwarten */
         this.oNotizService.deleteDatensatz(e.target.dataset.notizId)
-        .then((result) => {
+        .then(() => {
             this.refreshPage(undefined,
                              'index');
         })
-        .catch((error) => {
+        .catch(() => {
             this.refreshPage(undefined,
                              'index');
-            alert('Error:', error);
         });
     }
 
@@ -288,42 +276,41 @@ class TodoController {
 
     /** Sortierung der Liste der Datensätze ändern */
     changeSort(e) {
-        this.#sortierung = e.target.value;
+        this.sortierung = e.target.value;
         this.refreshPage(undefined, 'index');
     }
 
     /** Filtern der Liste der anzuzeigenden Datensätze */
     changeFilter(e) {
         /** Abgeschlossene Element ausblenden */
-        if(e.target.dataset.filterAbgeschlossen == 'aus') {
-            this.#filter = '';
+        if (e.target.dataset.filterAbgeschlossen === 'aus') {
+            this.filter = '';
             this.refreshPage(undefined, 'index');
         /** Alle Emenete anzeigen */
         } else {
-            this.#filter = 'offen';
+            this.filter = 'offen';
             this.refreshPage(undefined, 'index');
         }
     }
 
     /** Todo als abgeschlossen markieren */
-    setAbgeschlossen (e) {
+    setAbgeschlossen(e) {
         /* Response API abwarten */
         this.oNotizService
         .getDatensatzById(e.target.dataset.notizId)
         .then((oNotizAlt) => {
             const oNotizNeu = oNotizAlt.bStatus === true ? {bStatus: false} : {bStatus: true};
             /* Update in Datenbank */
-            this.oNotizService.saveDatensatz(oNotizNeu, 
+            this.oNotizService.saveDatensatz(oNotizNeu,
                                              e.target.dataset.notizId);
         })
-        .then((result) => {
+        .then(() => {
             this.refreshPage(undefined,
                             'index');
         })
-        .catch((error) => {
+        .catch(() => {
             this.refreshPage(undefined,
                             'index');
-            alert('Error:', error);
         });
     }
 
@@ -342,16 +329,14 @@ class TodoController {
             }
         });
     }
-
 }
 
 /* DOM Laden */
-window.addEventListener('DOMContentLoaded', function() {
-
+window.addEventListener('DOMContentLoaded', function () {
     /* Handelbar Helper: Vergleichen */
-    Handlebars.registerHelper('xIf', function(a, operator, b, opts) {
-        var bool = false;
-        switch(operator) {
+    Handlebars.registerHelper('xIf', function (a, operator, b, opts) {
+        let bool = false;
+        switch (operator) {
            case '==':
                bool = a == b;
                break;
@@ -362,7 +347,7 @@ window.addEventListener('DOMContentLoaded', function() {
                bool = a < b;
                break;
            default:
-               throw "Unknown operator " + operator;
+               throw 'Unknown operator ' + operator;
         }
 
         if (bool) {
@@ -374,21 +359,29 @@ window.addEventListener('DOMContentLoaded', function() {
 
     /* Handelbar Helper: Datumsformat Konvertieren */
     Handlebars.registerHelper('formatDate', function (sDateIn, sFormat) {
-        const options_view = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
-        const options_mysql = { year: 'numeric', month: '2-digit', day: '2-digit'};
+        const optionsView = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+        const optionsMysql = { year: 'numeric', month: '2-digit', day: '2-digit'};
 
         let sDateOut = null;
 
-        switch(sFormat) {
+        switch (sFormat) {
             case 'mysql':
-                sDateOut = new Date(sDateIn).toLocaleString('de-DE', options_mysql)
+                sDateOut = new Date(sDateIn).toLocaleString('de-DE', optionsMysql)
+                                               .replaceAll('.', '-');
+                sDateOut = sDateOut.split('-').reverse().join('-');
+               break;
+               case 'mysql':
+                sDateOut = new Date(sDateIn).toLocaleString('de-DE', optionsMysql)
                                                .replaceAll('.', '-');
                 sDateOut = sDateOut.split('-').reverse().join('-');
                break;
             default:
-                sDateOut = new Date(sDateIn).toLocaleString('de-DE', options_view);
+                sDateOut = new Date(sDateIn).toLocaleString('de-DE', optionsView);
         }
-
+        if (sDateIn === undefined
+            || sDateIn === null) {
+            sDateOut = new Date().toLocaleString('de-DE', optionsView);
+        }
         return sDateOut;
     });
 

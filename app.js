@@ -1,5 +1,5 @@
 import express from 'express';
-import {oNotizenRoutes} from './routes/api/notizenRoutes.js';
+import oNotizenRoutes from './routes/api/notizenRoutes.js';
 
 const app = express();
 
@@ -12,4 +12,5 @@ app.use('/api', express.json());
 app.use('/api', express.urlencoded());
 app.use('/api', oNotizenRoutes);
 
-export const oApp = app;
+const oApp = app;
+export default oApp;

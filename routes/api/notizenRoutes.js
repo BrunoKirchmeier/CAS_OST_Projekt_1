@@ -1,5 +1,5 @@
 import express from 'express';
-import {oNotizenController} from '../../controller/notizenController.js';
+import oNotizenController from '../../controller/notizenController.js';
 
 const oRouter = express.Router();
 
@@ -10,4 +10,5 @@ oRouter.delete('/notizen/:id', oNotizenController.deleteDatensatz.bind(oNotizenC
 oRouter.get('/notizen', oNotizenController.getDatensaetze.bind(oNotizenController));
 oRouter.post('/notizen', oNotizenController.insertDatensatz.bind(oNotizenController));
 
-export const oNotizenRoutes = oRouter;
+const oNotizenRoutes = oRouter;
+export default oNotizenRoutes;

@@ -5,6 +5,7 @@ export class NotizenController {
         /** Konstruktor */
         constructor() {
             this.req = null;
+            this.res = null;
         }
 
      /** Alle Datensätze laden */
@@ -12,11 +13,13 @@ export class NotizenController {
         this.req = req;
         try {
             res.status(200)
+            .set(this.setHeaders())
             .json(await oNotizenDatastore.getNotizen(undefined,
                                                      this.req.query.sortingTyp,
                                                      this.req.query.filterTyp));
         } catch (err) {
             res.status(400)
+            .set(this.setHeaders())
             .json(err.message);
         }
     }
@@ -26,9 +29,11 @@ export class NotizenController {
         this.req = req;
         try {
             res.status(200)
+            .set(this.setHeaders())
             .json(await oNotizenDatastore.getNotizen(this.req.params.id));
         } catch (err) {
             res.status(400)
+            .set(this.setHeaders())
             .json(err.message);
         }
     }
@@ -46,9 +51,11 @@ export class NotizenController {
                         bStatus: false};
         try {
             res.status(201)
+            .set(this.setHeaders())
             .json(await oNotizenDatastore.insertDatensatz(oNotiz));
         } catch (err) {
             res.status(400)
+            .set(this.setHeaders())
             .json(err.message);
         }
     }
@@ -61,13 +68,16 @@ export class NotizenController {
 
             if (result === 0) {
                 res.status(400)
+                .set(this.setHeaders())
                 .end();
             } else {
                 res.status(200)
+                .set(this.setHeaders())
                 .end();
             }
         } catch (err) {
             res.status(400)
+            .set(this.setHeaders())
             .json(err.message);
         }
     }
@@ -94,16 +104,32 @@ export class NotizenController {
                                                                    this.req.body);
             if (result === 0) {
                 res.status(400)
+                .set(this.setHeaders())
                 .end();
             } else {
                 res.status(200)
+                .set(this.setHeaders())
                 .json(await oNotizenDatastore.getNotizen(this.req.params.id));
             }
         } catch (err) {
             res.status(400)
+            .set(this.setHeaders())
             .json(err.message);
         }
     }
+
+        /** Standart headers setzen */
+        setHeaders(oIndivHeaders = {}) {
+            this.oHeaders = {'Content-Type': 'application/json',
+                             'Access-Control-Allow-Origin': '*',
+                             'Access-Control-Allow-Credentials': true};
+
+            Object.keys(oIndivHeaders).forEach((key) => {
+                this.oHeaders[key] = oIndivHeaders[key];
+            });
+
+            return this.oHeaders;
+        }
 }
 
 const oNotizenController = new NotizenController();

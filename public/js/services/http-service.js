@@ -1,13 +1,14 @@
 export default class HttpService {
     /** Public Methoden */
-    async ajax(method, url, data, headers) {
+    async ajax(methode, url, data, headers) {
         this.fetchHeaders = new Headers({'content-type': 'application/json', ...(headers || {})});
         return fetch(url, {
-            method: method,
+            method: methode,
             headers: this.fetchHeaders,
             body: JSON.stringify(data),
-        }).then(x => {
-            return x.json();
+        }).then((result) => {
+            const x = result.json();
+            return x;
         });
     }
 }

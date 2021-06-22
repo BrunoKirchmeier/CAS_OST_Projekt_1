@@ -10,15 +10,27 @@ export class NotizenController {
      /** Alle Datensätze laden */
     async getDatensaetze(req, res) {
         this.req = req;
-        res.json(await oNotizenDatastore.getNotizen(undefined,
-                                                    this.req.query.sortingTyp,
-                                                    this.req.query.filterTyp));
+        try {
+            res.status(200)
+            .json(await oNotizenDatastore.getNotizen(undefined,
+                                                     this.req.query.sortingTyp,
+                                                     this.req.query.filterTyp));
+        } catch (err) {
+            res.status(400)
+            .json(err.message);
+        }
     }
 
     /** Datensatz nach Id laden */
     async getDatensatzById(req, res) {
         this.req = req;
-        res.json(await oNotizenDatastore.getNotizen(this.req.params.id));
+        try {
+            res.status(200)
+            .json(await oNotizenDatastore.getNotizen(this.req.params.id));
+        } catch (err) {
+            res.status(400)
+            .json(err.message);
+        }
     }
 
     /** Neuer Datensatz in DB einfügen */
@@ -32,14 +44,32 @@ export class NotizenController {
                         oDatumAbgeschlossen: null,
                         oDatumErstellt: new Date().toISOString(),
                         bStatus: false};
-
-        res.json(await oNotizenDatastore.insertDatensatz(oNotiz));
+        try {
+            res.status(201)
+            .json(await oNotizenDatastore.insertDatensatz(oNotiz));
+        } catch (err) {
+            res.status(400)
+            .json(err.message);
+        }
     }
 
     /** Datensatz löschen */
     async deleteDatensatz(req, res) {
         this.req = req;
-        res.json(await oNotizenDatastore.deleteDatensatz(this.req.params.id));
+        try {
+            const result = await oNotizenDatastore.deleteDatensatz(this.req.params.id);
+
+            if (result === 0) {
+                res.status(400)
+                .end();
+            } else {
+                res.status(200)
+                .end();
+            }
+        } catch (err) {
+            res.status(400)
+            .json(err.message);
+        }
     }
 
     /** Datensatz in DB aktualisieren */
@@ -59,8 +89,20 @@ export class NotizenController {
                                                     .toISOString();
         }
 
-        res.json(await oNotizenDatastore.updateDatensatz(this.req.params.id,
-                                                         this.req.body));
+        try {
+            const result = await oNotizenDatastore.updateDatensatz(this.req.params.id,
+                                                                   this.req.body);
+            if (result === 0) {
+                res.status(400)
+                .end();
+            } else {
+                res.status(200)
+                .json(await oNotizenDatastore.getNotizen(this.req.params.id));
+            }
+        } catch (err) {
+            res.status(400)
+            .json(err.message);
+        }
     }
 }
 

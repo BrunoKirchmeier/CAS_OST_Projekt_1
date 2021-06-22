@@ -21,15 +21,18 @@ class NotizenDatastore {
         } else if (sortierung === 'prio') {
             this.sortierung = 'iPrio';
         }
+
         /** Sortier Richtung */
         this.sortierRichtung = sortierung === 'oDatumZuErledigenBis'
                                || sortierung === 'oDatumErstellt'
                               ? 1
                               : -1;
+
         /** Filter */
         this.filter = filter === 'offen'
                      ? { bStatus: { $ne: true }}
                      : {};
+
         /** Alle Datensätze */
         if (id === undefined) {
             const oArgument = {};
@@ -51,7 +54,7 @@ class NotizenDatastore {
     async updateDatensatz(id,
                           oNotiz) {
         this.daten = await this.db.update({ _id: id },
-                                            { $set: oNotiz});
+                                          { $set: oNotiz});
         return this.daten;
     }
 

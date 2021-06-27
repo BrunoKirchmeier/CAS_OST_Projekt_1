@@ -94,9 +94,12 @@ export class NotizenController {
                                                      .toISOString();
         }
 
-        if (this.req.body.oDatumAbgeschlossen !== undefined) {
+        if (this.req.body.oDatumAbgeschlossen !== undefined
+            && this.req.body.oDatumAbgeschlossen !== null) {
             this.req.body.oDatumAbgeschlossen = new Date(req.body.oDatumAbgeschlossen)
                                                     .toISOString();
+        } else if (this.req.body.oDatumAbgeschlossen === null) {
+            this.req.body.oDatumAbgeschlossen = null;
         }
 
         try {
@@ -118,18 +121,18 @@ export class NotizenController {
         }
     }
 
-        /** Standart headers setzen */
-        setHeaders(oIndivHeaders = {}) {
-            this.oHeaders = {'Content-Type': 'application/json',
-                             'Access-Control-Allow-Origin': '*',
-                             'Access-Control-Allow-Credentials': true};
+    /** Standart headers setzen */
+    setHeaders(oIndivHeaders = {}) {
+        this.oHeaders = {'Content-Type': 'application/json',
+                         'Access-Control-Allow-Origin': '*',
+                         'Access-Control-Allow-Credentials': true};
 
-            Object.keys(oIndivHeaders).forEach((key) => {
-                this.oHeaders[key] = oIndivHeaders[key];
-            });
+        Object.keys(oIndivHeaders).forEach((key) => {
+            this.oHeaders[key] = oIndivHeaders[key];
+        });
 
-            return this.oHeaders;
-        }
+        return this.oHeaders;
+    }
 }
 
 const oNotizenController = new NotizenController();

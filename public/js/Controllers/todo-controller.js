@@ -12,7 +12,7 @@ class TodoController {
     }
 
     /** Public Methoden */
-    refreshPage(e1, Page) {
+    refreshPage(e, Page) {
         /* Aktuelle Ansicht löschen */
         const oNodeHeader = document.querySelector('.header');
         const oNodeContent = document.querySelector('.content');
@@ -40,7 +40,7 @@ class TodoController {
         } else if (Page === 'detail') {
             /* Response API abwarten */
             this.oNotizService
-            .getDatensatzById(e1.target.dataset.notizId)
+            .getDatensatzById(e.target.dataset.notizId)
             .then((arrNotizen) => {
                 this.renderPageDetail(oNodeHeader,
                                       oNodeContent,
@@ -60,6 +60,9 @@ class TodoController {
                     oNodeContent,
                     oNodeFooter,
                     arrNotizen = []) {
+
+console.log(arrNotizen);
+
         /* Parameter speichern */
         this.oNodeHeader = oNodeHeader;
         this.oNodeContent = oNodeContent;
@@ -102,22 +105,22 @@ class TodoController {
             oNodeButtonFilterAbgeschlossen.classList.remove('button-ist-aktiv');
         }
         /* Eventlistener Registrieren */
-        oNodeButtonNeueNotiz.addEventListener('click', (e2) => this.refreshPage(e2, 'detail'));
-        oNodeButtonChangeStyle.addEventListener('change', (e2) => this.changeStyle(e2));
-        oNodeButtonChangeSort.addEventListener('change', (e2) => this.changeSort(e2));
-        oNodeButtonFilterAbgeschlossen.addEventListener('click', (e2) => this.changeFilter(e2));
+        oNodeButtonNeueNotiz.addEventListener('click', (e) => this.refreshPage(e, 'detail'));
+        oNodeButtonChangeStyle.addEventListener('change', (e) => this.changeStyle(e));
+        oNodeButtonChangeSort.addEventListener('change', (e) => this.changeSort(e));
+        oNodeButtonFilterAbgeschlossen.addEventListener('click', (e) => this.changeFilter(e));
         oNodeButtonFinishedNotiz.forEach((oNodeButton) => {
-            oNodeButton.addEventListener('click', (e2) => this.setAbgeschlossen(e2));
+            oNodeButton.addEventListener('click', (e) => this.setAbgeschlossen(e));
         });
         oNodeButtonEditNotiz.forEach((oNodeButton) => {
-            oNodeButton.addEventListener('click', (e2) => this.refreshPage(e2, 'detail'));
+            oNodeButton.addEventListener('click', (e) => this.refreshPage(e, 'detail'));
         });
         oNodeButtonDeleteNotiz.forEach((oNodeButton) => {
-            oNodeButton.addEventListener('click', (e2) => this.deleteDatensatz(e2));
+            oNodeButton.addEventListener('click', (e) => this.deleteDatensatz(e));
         });
     }
 
-    /** Page Index HTML Rendern */
+    /** Page Detail HTML Rendern */
     renderPageDetail(oNodeHeader,
                      oNodeContent,
                      oNodeFooter,
@@ -148,10 +151,10 @@ class TodoController {
         /* Eventlistener Registrieren */
         const oNodeButtonPrio = document.querySelectorAll('.prio-wert-setzen');
         oNodeButtonPrio.forEach((oNodeButton) => {
-            oNodeButton.addEventListener('click', (e2) => this.setPrioWert(e2));
+            oNodeButton.addEventListener('click', (e) => this.setPrioWert(e));
         });
-        oNodeButtonCancel.addEventListener('click', (e2) => this.refreshPage(e2, 'index'));
-        oNodeButtonSpeichern.addEventListener('click', (e2) => this.saveDatensatz(e2));
+        oNodeButtonCancel.addEventListener('click', (e) => this.refreshPage(e, 'index'));
+        oNodeButtonSpeichern.addEventListener('click', (e) => this.saveDatensatz(e));
     }
 
     /** Datensatz speichern */
@@ -299,7 +302,13 @@ class TodoController {
         this.oNotizService
         .getDatensatzById(e.target.dataset.notizId)
         .then((oNotizAlt) => {
-            const oNotizNeu = oNotizAlt.bStatus === true ? {bStatus: false} : {bStatus: true};
+            let oNotizNeu = null;
+            if (oNotizAlt.bStatus === true) {
+                oNotizNeu = {bStatus: false, oDatumAbgeschlossen: null};
+            } else {
+                oNotizNeu = {bStatus: true, oDatumAbgeschlossen: new Date()};
+            }
+
             /* Update in Datenbank */
             this.oNotizService.saveDatensatz(oNotizNeu,
                                              e.target.dataset.notizId);
@@ -316,10 +325,10 @@ class TodoController {
 
     /** Wert Priorität setzen */
     setPrioWert(e) {
-        const oNodeContainerPrio = document.querySelector('.prio-container-status');
-        oNodeContainerPrio.dataset.prioWert = e.target.dataset.prioWert;
-        const oNodePrioElemente = document.querySelectorAll('.prio-container-status img');
-        oNodePrioElemente.forEach((oNode) => {
+        this.oNodeContainerPrio = document.querySelector('.prio-container-status');
+        this.oNodeContainerPrio.dataset.prioWert = e.target.dataset.prioWert;
+        this.oNodePrioElemente = document.querySelectorAll('.prio-container-status img');
+        this.oNodePrioElemente.forEach((oNode) => {
             if (oNode.dataset.prioWert > e.target.dataset.prioWert) {
                 oNode.classList.add('blitz-inaktiv');
                 oNode.classList.remove('blitz-aktiv');
@@ -332,14 +341,18 @@ class TodoController {
 }
 
 /* DOM Laden */
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('DOMContentLoaded', () => {
     /* Handelbar Helper: Vergleichen */
-    Handlebars.registerHelper('xIf', function (a, operator, b, opts) {
+    Handlebars.registerHelper('xIf', (a, operator, b, opts) => {
         let bool = false;
+        let retVal = null;
         switch (operator) {
-           case '==':
-               bool = a == b;
-               break;
+           case '===':
+                bool = a === b;
+                break;
+            case '!==':
+                bool = a !== b;
+                break;
            case '>':
                bool = a > b;
                break;
@@ -347,41 +360,29 @@ window.addEventListener('DOMContentLoaded', function () {
                bool = a < b;
                break;
            default:
-               throw 'Unknown operator ' + operator;
+               throw new Error('Unknown operator ');
+        }
+        if (bool) {
+            retVal = opts.fn(this);
+        } else {
+            retVal = opts.inverse(this);
         }
 
-        if (bool) {
-            return opts.fn(this);
-        } else {
-            return opts.inverse(this);
-        }
+        return retVal;
     });
 
     /* Handelbar Helper: Datumsformat Konvertieren */
-    Handlebars.registerHelper('formatDate', function (sDateIn, sFormat) {
+    Handlebars.registerHelper('formatDate', (oDateIn, sFormat) => {
         const optionsView = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
-        const optionsMysql = { year: 'numeric', month: '2-digit', day: '2-digit'};
-
         let sDateOut = null;
+        if (oDateIn === undefined || oDateIn === null) {
+            sDateOut = '';
+        } else if (sFormat === 'mysql') {
+            sDateOut = new Date(oDateIn).toISOString().slice(0, 10);
+        } else {
+            sDateOut = new Date(oDateIn).toLocaleString('de-DE', optionsView);
+        }
 
-        switch (sFormat) {
-            case 'mysql':
-                sDateOut = new Date(sDateIn).toLocaleString('de-DE', optionsMysql)
-                                               .replaceAll('.', '-');
-                sDateOut = sDateOut.split('-').reverse().join('-');
-               break;
-               case 'mysql':
-                sDateOut = new Date(sDateIn).toLocaleString('de-DE', optionsMysql)
-                                               .replaceAll('.', '-');
-                sDateOut = sDateOut.split('-').reverse().join('-');
-               break;
-            default:
-                sDateOut = new Date(sDateIn).toLocaleString('de-DE', optionsView);
-        }
-        if (sDateIn === undefined
-            || sDateIn === null) {
-            sDateOut = new Date().toLocaleString('de-DE', optionsView);
-        }
         return sDateOut;
     });
 

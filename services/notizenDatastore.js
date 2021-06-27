@@ -23,8 +23,8 @@ class NotizenDatastore {
         }
 
         /** Sortier Richtung */
-        this.sortierRichtung = sortierung === 'oDatumZuErledigenBis'
-                               || sortierung === 'oDatumErstellt'
+        this.sortierRichtung = this.sortierung === 'oDatumZuErledigenBis'
+                               || this.sortierung === 'oDatumErstellt'
                               ? 1
                               : -1;
 

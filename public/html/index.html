@@ -24,7 +24,7 @@
     <header class="page-index header"></header>
     <main class="page-index content">
     </main>
-    <footer class="page-index footer">footer</footer>
+    <footer class="page-index footer">Created by Bruno Kirchmeier</footer>
   </div>
   <!-- Handelbar Templates: Liste aller Notizen (Header)-->
   <script class="page-index notiz-liste-header-template" 
@@ -112,6 +112,10 @@
                 {{#if bStatus}} checked {{/if}}>
         <label for="notizStatus_{{_id}}"
                data-notiz-id="{{_id}}">Finished</label>
+        <p>{{#xIf oDatumAbgeschlossen '!==' null}} [ {{/xIf}}
+           {{formatDate oDatumAbgeschlossen}} 
+           {{#xIf oDatumAbgeschlossen '!==' null}} ] {{/xIf}}
+        </p>
       </div>
       <div class="page-index notiz-container-text">
         <textarea class="textarea textbox-style-1"

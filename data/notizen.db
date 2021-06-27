@@ -1,2 +1,3 @@
-{"sTitel":"Test 2","sBeschreibung":"bez 2","iPrio":"2","oDatumZuErledigenBis":"2021-06-03T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":"2021-06-13T21:03:49.104Z","bStatus":false,"_id":"I4glboGuNL4L2L4D"}
-{"sTitel":"Titel 1","sBeschreibung":"Bezeichnung 1","iPrio":"3","oDatumZuErledigenBis":"2021-06-01T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":"2021-06-13T21:00:50.637Z","bStatus":false,"_id":"Ow3ABYznfDYUgmbJ"}
+{"sTitel":"Titel 1","sBeschreibung":"Bezeichnung 1121212","iPrio":"5","oDatumZuErledigenBis":"2021-06-01T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":"2021-06-13T21:00:50.637Z","bStatus":false,"_id":"Ow3ABYznfDYUgmbJ"}
+{"sTitel":"Test heute","sBeschreibung":"1212","iPrio":"1","oDatumZuErledigenBis":"2021-06-24T00:00:00.000Z","oDatumAbgeschlossen":null,"oDatumErstellt":"2021-06-27T14:21:30.904Z","bStatus":false,"_id":"QcpjsOJbMGt13O9a"}
+{"sTitel":"Zu erledigen","sBeschreibung":"121212","iPrio":"3","oDatumZuErledigenBis":"2021-03-11T00:00:00.000Z","oDatumAbgeschlossen":"2021-06-27T15:17:48.235Z","oDatumErstellt":"2021-06-27T14:30:54.332Z","bStatus":true,"_id":"gLXI2fsO32GsTZ28"}
